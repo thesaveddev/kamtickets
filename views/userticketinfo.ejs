@@ -1,6 +1,6 @@
 <%- include('partials/dashheader') %>
 
-        <div class="centralize w-50">
+        <div class="centralize w-50 mt-4">
             <div>
         <% if(message != '') { %>
             <div class="alert alert-secondary" role="alert">
@@ -57,7 +57,7 @@
                         <p>Ticket Category: <%= ticket.category %></p>
                         <p>Description Of Complaint: <%= ticket.description %></p>
                         <p>Attachments: 
-                        <a target="_blank" href="/<%= ticket.attachment %>">
+                        <a target="_blank" href="<%= ticket.attachment %>">
                         <img src="/<%= ticket.attachment %>" alt="attachment">
                         <div class="space"></div>
                         </a></p>
@@ -108,7 +108,7 @@
                             <form action="/user/comment" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
                                 <textarea name="usercomment" cols="80" rows="7" placeholder="Enter your comments here"></textarea>
-                                <div class="form-group">
+                                <div class="form-group m-4">
                                     <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
                                 </div>
                             </form>

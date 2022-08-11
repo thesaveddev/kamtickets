@@ -30,7 +30,7 @@ img {
   border: 1px solid #ddd; /* Gray border */
   border-radius: 4px;  /* Rounded border */
   padding: 5px; /* Some padding */
-  width: 150px; /* Set a small width */
+  width: 60px; /* Set a small width */
 }
 
 /* Add a hover effect (blue shadow) */
@@ -50,9 +50,7 @@ img:hover {
     background-color: #9a7b4f !important;
 }
 .card {
-  
     margin: auto;
-    
 }
 .card-header-admin {
    margin: auto;
