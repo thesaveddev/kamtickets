@@ -11,9 +11,13 @@
             <div>
                 <div class="">
                     <div class="card-header">
-                        <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
                         <div>
-                            <p>Date Created:</p> <%= ticket.date_created%>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-5 col-lg-6">
+                                <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
+                                <hr>
+                        <div class="float-left">
+                            <p>Date Created: <%= ticket.date_created%></p>
                         </div>
                         <% if(ticket.date_closed) { %>
                         <div>
@@ -22,36 +26,41 @@
                         </div>
                         <% } %>
                         <div>
-                            <p>Assigned To:</p><% if(ticket.state == "UNASSIGNED") { %>
-                                <p>Not Yet Assigned</p>
+                            <p>Assigned To: <% if(ticket.state == "UNASSIGNED") { %>
+                                Not Yet Assigned</p>
                                 <% } %>
                                 <%=ticket.staffname%>
                         </div>
                         <div>
-                            <p>Ticket State:</p> <%= ticket.state%>
+                            <p>Ticket State: <%= ticket.state%> </p>
                         </div>
+                            </div>
+                              <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">
+                                <p>Staff Contact Details</p>
+                                <hr>
+                                <p>Staff Email: <%= ticket.email %></p>
+                                <p>Staff Phone: <%= ticket.phone %></p>
+                                <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
+                                <p>Staff Department: <%= ticket.department %></p>                            </div>
+                            </div>
+                          </div>
+
                         <% if(ticket.status != "CLOSED") { %>
                         <a href="/closeticket/<%=ticket._id%>" class="btn btn-sm btn-outline-primary">Close Ticket</a>
                         <% } %>
                     </div>
                     <div class="card-body" align="center">
-                        <p>Staff Contact Details</p>
-                        <hr>
-                        <p>Staff Email: </p><p><%= ticket.email %></p>
-                        <p>Staff Phone: </p><p><%= ticket.phone %></p>
-                        <p>Staff SBU: </p><p><%= ticket.sbu.toUpperCase() %></p>
-                        <p>Staff Department: </p><p><%= ticket.department %></p>
-                        <hr>
+                       
+                    
                         <p>Ticket Detail</p>
                         <hr>
                         <p>Ticket Category: <%= ticket.category %></p>
-                        <p>Description Of Complaint:</p>
-                        <p><%= ticket.description %></p>
-                        <p>Attachments:</p>
+                        <p>Description Of Complaint: <%= ticket.description %></p>
+                        <p>Attachments: 
                         <a target="_blank" href="/<%= ticket.attachment %>">
                         <img src="/<%= ticket.attachment %>" alt="attachment">
                         <div class="space"></div>
-                        </a>
+                        </a></p>
                         <div class="comments">
                             <div class="comments-header bg-secondary text-white">
                                 <h5>Comments</h5>
@@ -91,20 +100,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <!--<div class="card-footer-admin">-->
+            
                         <% if(ticket.status != "CLOSED") { %>
-                        <div class="card-header">Admin Comment</div>
-                        <div class="form">
+                        <div class="card-header-admin" align="center">Add Comment</div>
+                        <div class="form" align="center">
                             <form action="/user/comment" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
-                                <textarea name="usercomment" cols="70" rows="7"></textarea>
+                                <textarea name="usercomment" cols="80" rows="7" placeholder="Enter your comments here"></textarea>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
                                 </div>
                             </form>
                         </div>
                         <% } %>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>

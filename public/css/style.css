@@ -4,6 +4,7 @@
 }
 .centralize {
     margin: auto;
+    display: inline-block;
     width: 95%;
     align-items: center;
 }
@@ -49,6 +50,13 @@ img:hover {
     background-color: #9a7b4f !important;
 }
 .card {
-    width: 25%;
-    float: right;
+  
+    margin: auto;
+    
+}
+.card-header-admin {
+   margin: auto;
+}
+.form {
+    
 }
