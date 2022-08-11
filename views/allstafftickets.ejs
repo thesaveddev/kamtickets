@@ -1,0 +1,55 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize">
+          <div class="m-2">
+            <a class="btn btn-sm btn-outline-primary" href="/staffdashboard">All Tickets</a>
+            <a class="btn btn-sm btn-outline-primary" href="/staffopentickets">Open Tickets</a>
+            <a class="btn btn-sm btn-outline-primary" href="/staffinprogresstickets">In Progress Tickets</a>
+            <a class="btn btn-sm btn-outline-primary" href="/staffclosedtickets">Closed Tickets</a>
+            <div class="ml-5 float-right">
+              <form method="post" action="/stafffindtickets">
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Search">
+                  <!-- <button class="btn btn-sm btn-outline-primary" type="submit">Find User Tickets</button> -->
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="m-2 page-title">
+            <h2 class="p-2"><%= pagetitle %></h2>
+            <span class="p-2"><%= tickets.length %> Ticket(s)</span>
+          </div>
+           <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+           <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">SBU</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Date Opened</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% tickets.reverse().forEach(ticket => { %>
+        <tr>
+          <td><%= ticket.fullname%> </td>
+          <td><%= ticket.sbu.toUpperCase()%> </td>
+          <td><%= ticket.subject%> </td>
+          <td><%= ticket.date_created%> </td>
+          <td><%= ticket.status%> </td>
+          <td><a href="/staff/ticket/<%=ticket._id%>" class="btn btn-outline-primary">View Ticket</a></td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>
+        </div>
+
+<%- include('partials/dashFooter') %>

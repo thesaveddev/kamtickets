@@ -1,0 +1,63 @@
+<%- include('partials/dashheader') %>
+<div class="container" align="center">
+    <div>
+        <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+        <div class="description">
+            <p>Project Name:
+            <span> <%= proposal.projectName %> </span>
+            </p>
+        </div>
+        <hr>
+        <div class="description">
+            <p>Project Description:
+            <span> <%= proposal.projectDesciption %> </span>
+            </p>
+        </div>
+        <hr>
+        <div class="description">
+            <p>Submission Date:
+            <span> <%= proposal.submissionDate.toDateString() %> </span>
+            </p>
+        </div>
+        <hr>
+        <div class="description">
+            <p>Status:
+            <span> <%= proposal.status %> </span>
+            </p>
+        </div>
+        <hr>
+        <div class="description">
+            <p>Proposal Document:
+            <span> <a href="/"> <%= proposal.attachment %> </a> </span>
+            </p>
+        </div>
+        <% if(comments != '') { %>
+            <p>Comments:</p>
+            <div class="comment">
+            <% for (comment of comments) { %>
+            <td> <%= comment.commentator %>: </td>
+            <br>
+            <td> </td><%= comment.comment %> </td>
+            <br>
+            <td> </td><%= comment.date.toDateString() %> </td>
+            <hr>
+            <% } %>
+            </div>
+        <% } %>
+
+        <% if (user.userType == 'Admin') { %>
+        <div class="action-btn">
+            <a href="/proposal/<%= proposal._id %>/approve" class="btn btn-success btn-group">Approve</a>
+            <a href="/proposal/<%= proposal._id %>/decline" class="btn btn-danger btn-group">Decline</a>
+            <% } %>
+            <a href="/proposal/<%= proposal._id %>/comment" class="btn btn-primary btn-group">Write a Comment</a>
+        </div>
+    </div>
+</div>
+<%- include('partials/dashFooter') %>

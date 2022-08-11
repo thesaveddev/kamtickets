@@ -1,0 +1,62 @@
+.wrapper {
+    margin-top: 5%;
+    display: flex;
+}
+.centralize {
+    margin: auto;
+    display: inline-block;
+    width: 95%;
+    align-items: center;
+}
+.top-space {
+    margin-top: 15%;
+}
+.space {
+    padding: 10px
+}
+.clear {
+    height: 60px;
+}
+.btn-center {
+    margin-left: auto;
+}
+.form-wide {
+    width: 30%;
+}
+.wide {
+    width: 100% !important;
+}
+img {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 5px; /* Some padding */
+  width: 150px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+.btn-outline-primary {
+    color: #9a7b4f;
+    border: 1px solid #b4b9c0;
+}
+.btn-outline-primary:hover{
+    background-color: #b4b9c0 !important;
+    color: #9a7b4f !important;
+    border: 1px solid #b4b9c0;
+}
+.bg-primary {
+    background-color: #9a7b4f !important;
+}
+.card {
+  
+    margin: auto;
+    
+}
+.card-header-admin {
+   margin: auto;
+}
+.form {
+    
+}

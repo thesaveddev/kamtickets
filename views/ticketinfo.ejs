@@ -1,0 +1,120 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize w-50">
+            <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+            <div>
+                <div class="">
+                    <div class="card-header">
+                        <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
+                        <div>
+                            <p>Date Created:</p> <%= ticket.date_created%>
+                        </div>
+                        <% if(ticket.date_closed) { %>
+                        <div>
+                            <p>Date Closed:</p> <%= ticket.date_closed%>
+                            <p>Closed By:</p> <%= ticket.closed_by%>
+                        </div>
+                        <% } %>
+                        <div>
+                            <p>Assigned To:</p><% if(ticket.state == "UNASSIGNED") { %>
+                                <p>Not Yet Assigned</p>
+                                <% } %>
+                                <%=ticket.staffname%>
+                        </div>
+                        <div>
+                            <p>Ticket State:</p> <%= ticket.state%>
+                        </div>
+                        <% if(ticket.status != "CLOSED") { %>
+                        <a href="/closeticket/<%=ticket._id%>" class="btn btn-sm btn-outline-primary">Close Ticket</a>
+                        <% } %>
+                    </div>
+                    <div class="card-body" align="center">
+                        <p>Staff Contact Details</p>
+                        <hr>
+                        <p>Staff Email: </p><p><%= ticket.email %></p>
+                        <p>Staff Phone: </p><p><%= ticket.phone %></p>
+                        <p>Staff SBU: </p><p><%= ticket.sbu.toUpperCase() %></p>
+                        <p>Staff Department: </p><p><%= ticket.department %></p>
+                        <hr>
+                        <p>Ticket Detail</p>
+                        <hr>
+                        <p>Ticket Category: <%= ticket.category %></p>
+                        <p>Description Of Complaint:</p>
+                        <p><%= ticket.description %></p>
+                        <p>Attachments:</p>
+                        <a target="_blank" href="/<%= ticket.attachment %>">
+                        <img src="/<%= ticket.attachment %>" alt="attachment">
+                        <div class="space"></div>
+                        </a>
+                        <div class="comments">
+                            <div class="comments-header bg-secondary text-white">
+                                <h5>Comments</h5>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>Admin Comments</span>
+                                </div>
+                                <div class="card-body">
+                                    <% if(!ticket.admincomment) { %>
+                                        <p>No comments from Admin.</p>
+                                        <%}%> 
+                                    <%= ticket.admincomment %>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>IT Officer Comments</span>
+                                </div>
+                                <div class="card-body">
+                                    <% if(!ticket.staffcomment) { %>
+                                        <p>No comments from IT Officer.</p>
+                                        <%}%> 
+                                    <%= ticket.staffcomment %>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>User Comments</span>
+                                </div>
+                                <div class="card-body">
+                                    <% if(!ticket.usercomment) { %>
+                                        <p>No comments from User.</p>
+                                        <%}%> 
+                                    <%= ticket.usercomment %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <% if(ticket.status != "CLOSED") { %>
+                        <div class="card-header">Admin Comment</div>
+                        <div class="form">
+                            <form action="/assignticket" method="post">
+                                <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                                <textarea name="admincomment" cols="70" rows="7"></textarea>
+                                <div class="form-group">
+                                    <select class="form-control" name="staff" aria-placeholder="Staff" required>
+                                    <option value=""disabled selected>Assign To Staff</option>
+                                    <% allstaff.forEach(staff => { %>
+                                        <option value="<%=staff._id%>"><%=staff.staffname%></option>
+                                    <% }) %>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
+                                </div>
+                            </form>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include('partials/dashFooter') %>

@@ -1,0 +1,57 @@
+<%- include('partials/dashheader') %>
+
+<div class="centralize" align="center">
+    <div class="m-4">
+        <h4>Add a New Staff</h4>
+    </div>
+    <div class="form-wide">
+    <form action="/addstaff" method="POST">
+        <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+
+        <div class="form-group">
+        <input type="text" class="form-control" name="staffname" placeholder="Full Name" required minlength="6">
+        </div>
+        <div class="form-group">
+        <select class="form-control" name="sbu" aria-placeholder="SBU" required>
+            <option value="PPP" selected>Select SBU</option>
+            <option value="hq">Kam HQ</option>
+            <option value="jimba oja">Kam Steel - Jimba Oja</option>
+            <option value="sagamu">Kam Steel - Sagamu</option>
+            <option value="bolfik">Bolfik</option>
+            <option value="taopex">Taopex</option>
+            <option value="dimkit-ganmo">Dimkit - Ganmo</option>
+            <option value="dimkit-kaduna">Dimkit - Kaduna</option>
+            <option value="dimkit-asaba">Dimkit - Asaba</option>
+            <option value="boity">Boity</option>
+            <option value="quarry">Kam Quarry</option>
+            <option value="tyb-investment">TYB Investment</option>
+            <option value="haulage">Kam Haulage</option>
+            <option value="kirikiri">Lagos Office - Kirikiri</option>
+            <option value="vi">Lagos Office - VI</option>
+            <option value="ikeja">Lagos Office - Ikeja</option>
+        </select>
+        </div>
+        <div class="form-group">
+        <input type="text" class="form-control" name="designation" placeholder="Staff Designation" required minlength="6">
+        </div>
+        <div class="form-group">
+        <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+        </div>
+         <div class="form-group">
+        <input type="text" class="form-control" name="phone" placeholder="Phone Number (CUG Preferred)" required>
+        </div>
+        <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="User Password" required>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Create Staff Profile</button>
+    </form>
+    </div>
+
+</div>
+<%- include('partials/dashFooter') %>
