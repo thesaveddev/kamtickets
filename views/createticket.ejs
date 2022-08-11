@@ -1,0 +1,75 @@
+<%- include('partials/dashheader') %>
+
+<div class="centralize w-100" align="center">
+    <div class="">
+        <h4>Raise a New Ticket</h4>
+    </div>
+    <div class="form-wide">
+    <form action="/createticket" method="POST" enctype="multipart/form-data">
+        <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+
+        <div class="form-group">
+        <input type="text" class="form-control" name="fullname" placeholder="Full Name" required minlength="6">
+        </div>
+        <div class="form-group">
+        <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+        </div>
+         <div class="form-group">
+        <input type="text" class="form-control" name="phone" placeholder="Phone Number (CUG Preferred)" required>
+        </div>
+        <div class="form-group">
+        <select class="form-control" name="sbu" aria-placeholder="SBU" required>
+            <option value="" disabled selected>Select SBU</option>
+            <option value="hq">Kam HQ</option>
+            <option value="jimba">Kam Steel - Jimba Oja</option>
+            <option value="sagamu">Kam Steel - Sagamu</option>
+            <option value="bolfik">Bolfik</option>
+            <option value="taopex">Taopex</option>
+            <option value="group">Group</option>
+            <option value="dimkit-ganmo">Dimkit - Ganmo</option>
+            <option value="dimkit-kaduna">Dimkit - Kaduna</option>
+            <option value="dimkit-asaba">Dimkit - Asaba</option>
+            <option value="boity">Boity</option>
+            <option value="quarry">Kam Quarry</option>
+            <option value="tyb-investment">TYB Investment</option>
+            <option value="haulage">Kam Haulage</option>
+            <option value="kirikiri">Lagos Office - Kirikiri</option>
+            <option value="vi">Lagos Office - VI</option>
+            <option value="ikeja">Lagos Office - Ikeja</option>
+        </select>
+        </div>
+        <div class="form-group">
+        <input type="text" class="form-control" name="department" placeholder="Department" required>
+        </div>
+         <div class="form-group">
+        <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+        </div>
+        <div class="form-group">
+        <select class="form-control" name="category" aria-placeholder="Select Category Of Complaint" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Printer Issue">Printer Related Issue</option>
+            <option value="Network Related Issue">Network Related Issue</option>
+            <option value="PC Related Issue">PC/Laptop Related Issue Related Issue</option>
+            <option value="Camera Issue">Camera Related Issue</option>
+            <option value="Email Issue">Email Related Issue</option>
+            <option value="Miscelaneous">Miscelaneous Issue</option>
+        </select>
+        </div>
+        <div class="form-group">
+        <textarea class="form-control" name="description" rows="5" placeholder="Description Of Complaint" required></textarea>
+        </div>
+        <div class="form-group">
+        <input type="file" class="form-control" name="attachment">
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Create Ticket</button>
+    </form>
+    </div>
+
+</div>
+<%- include('partials/dashFooter') %>

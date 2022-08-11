@@ -1,0 +1,25 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize top-space w-50">
+            <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+                    <%= message %>
+            </div>
+                <% } %>
+            <form class="form" method="post" action="/tracktickets">
+                <div class="form-group btn-center " align="center">
+                    <input class="form-control m-2" type="email" name="email" placeholder="Enter your email address" autofocus>
+                </div>
+                <div class="btn-center" align="center">
+                    <% if (message == "") { %>
+                    <button class="btn btn-outline-primary" type="submit">Track My Tickets</button>
+                    <% } %>
+                    <% if (message != "") { %>
+                    <button class="btn btn-outline-primary" type="submit">Track My Tickets</button>
+                    <a href="/createticket" class="btn btn-outline-primary" type="submit">Create New Tickets</a>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+
+<%- include('partials/dashFooter') %>

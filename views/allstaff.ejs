@@ -1,0 +1,42 @@
+<%- include('partials/dashheader') %>
+
+        <div class="m-5 centralize">
+          <div>
+            <a href="/addstaff" class="btn btn-sm btn-outline-primary">Add New Staff</a>
+          </div>
+          <div class="mt-2"></div>
+           <table class="table table-striped">
+             <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+  <thead>
+    <tr>
+      <th scope="col">Staff Name</th>
+      <th scope="col">SBU</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% allStaff.reverse().forEach(staff => { %>
+        <tr>
+          <td><%= staff.staffname%> </td>
+          <td><%= staff.sbu.toUpperCase()%> </td>
+          <td><%= staff.designation%> </td>
+          <td><%= staff.email%> </td>
+          <td><%= staff.phone%> </td>
+          <td><a href="/staff/<%=staff.id%>/edit" class="btn btn-outline-primary">Edit</a></td>
+          <td><a href="/staff/<%=staff.id%>/delete" class="btn btn-outline-danger">Delete</button></td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>
+        </div>
+
+<%- include('partials/dashFooter') %>
