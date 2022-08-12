@@ -19,7 +19,10 @@
     </ul>
     <span class="navbar-text">
     <a class="text-white" href="/admin/dashboard">Admin</a>
-    <a class="ml-4 text-white" href="/logout">Logout</a>
+    <%if(user.fullname) { %>
+      <span class=""><%=user.fullname%></span>
+      <a class="ml-4 text-white" href="/logout">Logout</a>
+    <%} %>
     </span>
   </div>
 </nav>

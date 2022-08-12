@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 // show admin dashboard
 exports.admindashboard = async (req, res) => {
     return res.render('admindashboard', {
+        user: req.user
     })
 }
 
@@ -20,7 +21,8 @@ exports.allTickets = async (req, res) => {
     return res.render('alltickets', {
         message: "",
         tickets,
-        pagetitle: "All Tickets"
+        pagetitle: "All Tickets",
+        user: req.user
     })
 }
 
@@ -31,13 +33,15 @@ exports.unassignedTickets = async (req, res) => {
         return res.render('alltickets', {
             message: "There are no unassigned tickets.",
             tickets,
-            pagetitle: "Unassigned Tickets"
+            pagetitle: "Unassigned Tickets",
+        user: req.user
         })
     }
     return res.render('alltickets', {
         message: "Unassigned Tickets",
         tickets,
-        pagetitle: "Unassigned Tickets"
+        pagetitle: "Unassigned Tickets",
+        user: req.user
     })
 }
 
@@ -49,13 +53,15 @@ let tickets = await Ticket.find({ state: "ASSIGNED" });
         return res.render('alltickets', {
             message: "There are no assigned tickets.",
             tickets,
-            pagetitle: "Assigned Tickets"
+            pagetitle: "Assigned Tickets",
+        user: req.user
         })
     }
     return res.render('alltickets', {
         message: "Assigned Tickets",
         tickets,
-        pagetitle: "Assigned Tickets"
+        pagetitle: "Assigned Tickets",
+        user: req.user
     })
 }
 
@@ -67,13 +73,15 @@ let tickets = await Ticket.find({ status: "OPEN" });
         return res.render('alltickets', {
             message: "There are no open tickets.",
             tickets,
-            pagetitle: "Open Tickets"
+            pagetitle: "Open Tickets",
+        user: req.user
         })
     }
     return res.render('alltickets', {
         message: "",
         tickets,
-        pagetitle: "Open Tickets"
+        pagetitle: "Open Tickets",
+        user: req.user
     })
 }
 
@@ -85,13 +93,15 @@ let tickets = await Ticket.find({ status: "CLOSED" });
         return res.render('alltickets', {
             message: "There are no closed tickets.",
             tickets,
-            pagetitle: "Closed Tickets"
+            pagetitle: "Closed Tickets",
+        user: req.user
         })
     }
     return res.render('alltickets', {
         message: "Closed Tickets",
         tickets,
-        pagetitle: "Closed Tickets"
+        pagetitle: "Closed Tickets",
+        user: req.user
     })
 }
 
@@ -103,13 +113,15 @@ let tickets = await Ticket.find({ status: "IN PROGRESS" });
         return res.render('alltickets', {
             message: "There are no in progress tickets.",
             tickets,
-            pagetitle: "In Progress Tickets"
+            pagetitle: "In Progress Tickets",
+        user: req.user
         })
     }
     return res.render('alltickets', {
         message: "",
         tickets,
-        pagetitle: "In Progress Tickets"
+        pagetitle: "In Progress Tickets",
+        user: req.user
     })
 }
 
@@ -122,14 +134,16 @@ exports.viewTicket = async (req, res) => {
 
         return res.render('alltickets', {
             message: "ticket not found",
-            tickets
+            tickets,
+        user: req.user
         })
     }
 
     return res.render('ticketinfo', {
         ticket,
         allstaff,
-        message: ""
+        message: "",
+        user: req.user
     })
 
 }
@@ -142,70 +156,38 @@ exports.assignTicket = async (req, res) => {
     
 
     if (!ticket) {
-        return res.render('updateinfo', {
+        return res.render('ticketinfo', {
             message: "Ticket not found.",
-            allstaff
+            allstaff,
+            user: req.user
         })
     }
 
     if (!staff) {
-        return res.render('updateinfo', {
+        return res.render('ticketinfo', {
             message: "Staff Not Found.",
-            allstaff
+            allstaff,
+            user: req.user
         })
     }
 
-    // ticket.staffid = staff._id;
-    // ticket.staffname = staff.staffname;
-    // ticket.admincomment = req.body.admincomment;
-    // ticket.state = "ASSIGNED"
-    // ticket.save();
-
-    let closed, closed_by;
-    if (req.body.status == "CLOSED") {
-        closed = moment(Date.now()).format("DD MM YYYY HH:mm"),
-        closed_by = req.user.fullname
-    }
-    let comment;
-    if (ticket.admincomment == null && req.body.admincomment != "") {
-        comment = `${req.body.admincomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
+    if(req.body.admincomment) {
+        ticket.admincomment.push(`${req.body.admincomment} @ ${moment(Date.now()).format("LLLL")}`)
     }
 
+        ticket.state = "ASSIGNED";
+        ticket.staffid = staff._id;
+        ticket.staffname = staff.staffname;
+        ticket.save();
 
-    if (ticket.admincomment != null && req.body.admincomment != "") {
-        comment = `${ticket.admincomment} ${req.body.admincomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
-}
-
-    let update = {
-        state: "ASSIGNED",
-        staffid: staff._id,
-        staffname: staff.staffname,
-        admincomment: comment,
-        date_closed: closed,
-        closed_by
-    }
-
-    await Ticket.updateOne({ _id: req.body.ticketid }, update , { new: true }, async (err, updatedticket) => {
-        if (err) {
-            return res.render('ticketinfo', {
-                ticket,
-                message: "Ticket could not updated"
-            })
-        }
     let tickets = await Ticket.find();
         
         return res.render('alltickets', {
         message: 'Ticket has been updated',
         tickets,
-        pagetitle: 'All Tickets'
+        pagetitle: 'All Tickets',
+        user: req.user
     })
-    })
-
-    // return res.render('ticketinfo', {
-    //     ticket,
-    //     message: `Ticket has been assigned to ${staff.staffname}.`,
-    //     allstaff
-    // })
 }
 
 // close ticket
@@ -217,10 +199,11 @@ exports.closeTicket = async (req, res) => {
         return res.render('ticketinfo', {
             message: "Ticket not found.",
             ticket: [],
-            allstaff
+            allstaff,
+            user: req.user
     })
     }
-    console.log(req.user)
+
     ticket.status = "CLOSED"
     ticket.date_closed = moment(Date.now()).format("DD MM YYYY HH:mm");
     ticket.closed_by = req.user.fullname
@@ -229,7 +212,8 @@ exports.closeTicket = async (req, res) => {
     return res.render('ticketinfo', {
         message: "Ticket has been closed.",
         ticket,
-        allstaff
+        allstaff,
+        user: req.user
     })
 }
 
@@ -243,13 +227,15 @@ exports.findTickets = async (req, res) => {
         return res.render("allTickets", {
             tickets: [],
             message: "No result found.",
-            pagetitle: "Search Result"
+            pagetitle: "Search Result",
+            user: req.user
         })
     }
     return res.render("allTickets", {
         tickets,
         message: `${tickets.length} results found.`,
-        pagetitle: "Search Result"
+        pagetitle: "Search Result",
+        user: req.user
     })
 }
 
@@ -258,7 +244,8 @@ exports.findTickets = async (req, res) => {
 // create staff form
 exports.createStaffForm = async (req, res) => {
     return res.render("createstaff", {
-            message: ""
+            message: "",
+            user: req.user
         })
 }
 
@@ -269,7 +256,8 @@ exports.createStaff = async (req, res) => {
         
     if (existingstaff) {
         return res.render("createstaff", {
-            message: "A staff with specified email has already been created."
+            message: "A staff with specified email has already been created.",
+            user: req.user
         })
     }
 
@@ -303,12 +291,14 @@ exports.createStaff = async (req, res) => {
                     // Mailer.sendMail(mailconfig, mailOptions);
 
         return res.render('createstaff', {
-            message: "Staff profile has been created!"
+            message: "Staff profile has been created!",
+        user: req.user
         })
     }).catch(err => {
         console.log(err);
         return res.render("creatstaff", {
-            message: "Staff could not be created, please try again."
+            message: "Staff could not be created, please try again.",
+        user: req.user
         })
     })
 }
@@ -320,7 +310,8 @@ exports.deleteStaff = async (req, res) => {
 
         return res.render('allstaff', {
             message: "Staff profile has been deleted successfully.",
-            allStaff
+            allStaff,
+        user: req.user
         })
     }).catch(async (err) => {
     let allStaff = await Staff.find();
@@ -328,7 +319,8 @@ exports.deleteStaff = async (req, res) => {
         console.log(err)
         return res.render("allstaff", {
             message: "an error occured while deleting user profile",
-            allStaff
+            allStaff,
+        user: req.user
         })
     })
 }
@@ -339,13 +331,15 @@ exports.editStaffForm = async (req, res) => {
 
      if (!staff) {
         return res.render('editstaff', {
-            message: "Staff does not exist."
+            message: "Staff does not exist.",
+        user: req.user
         })
     }
 
     return res.render('editstaff', {
         staff,
-        message: ""
+        message: "",
+        user: req.user
     })
 }
 
@@ -363,12 +357,14 @@ exports.editStaff = async (req, res) => {
         if (err) {
             return res.render('allStaff', {
                 message: "Staff details not updated.",
-                allStaff
+                allStaff,
+        user: req.user
             })
         } else {
             return res.render('allStaff', {    
                 message: "Staff Details Updated",
-                allStaff
+                allStaff,
+        user: req.user
             })
         }
     })
@@ -381,7 +377,8 @@ exports.allStaff = async (req, res) => {
 
     return res.render('allstaff', {
         allStaff,
-        message: ""
+        message: "",
+        user: req.user
     })
 }
 
@@ -390,6 +387,7 @@ exports.findStaff = async (req, res) => {
     let staff = await Staff.findOne({ email: req.params.email });
 
     return res.render('staffInfo', {
-        staff
+        staff,
+        user: req.user
     })
 }

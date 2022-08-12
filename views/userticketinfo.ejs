@@ -1,6 +1,6 @@
 <%- include('partials/dashheader') %>
 
-        <div class="centralize w-50 mt-4">
+        <div class="centralize w-75 mt-4">
             <div>
         <% if(message != '') { %>
             <div class="alert alert-secondary" role="alert">
@@ -14,9 +14,13 @@
                         <div>
                             <div class="row">
                               <div class="col-sm-6 col-md-5 col-lg-6">
-                                <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
-                                <hr>
-                        <div class="float-left">
+                                <p><%=ticket.subject%></p>
+                                    <hr>
+                                    <div>
+                                        <p>Ticket Status: <span class="text-primary bold"><%= ticket.status %></span> </p>
+                                    </div>
+                                    <hr>
+                        <div class="">
                             <p>Date Created: <%= ticket.date_created%></p>
                         </div>
                         <% if(ticket.date_closed) { %>
@@ -24,16 +28,16 @@
                             <p>Date Closed:</p> <%= ticket.date_closed%>
                             <p>Closed By:</p> <%= ticket.closed_by%>
                         </div>
+                        
                         <% } %>
                         <div>
                             <p>Assigned To: <% if(ticket.state == "UNASSIGNED") { %>
-                                Not Yet Assigned</p>
+                                <span class="bg-danger bold text-white p-1"> Not Yet Assigned</span></p>
                                 <% } %>
-                                <%=ticket.staffname%>
-                        </div>
-                        <div>
-                            <p>Ticket State: <%= ticket.state%> </p>
-                        </div>
+                            </div>
+                            <div>
+                                <p><span class="bg-primary"><%=ticket.staffname%></span></p>
+                            </div>
                             </div>
                               <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">
                                 <p>Staff Contact Details</p>
@@ -44,23 +48,22 @@
                                 <p>Staff Department: <%= ticket.department %></p>                            </div>
                             </div>
                           </div>
-
-                        <% if(ticket.status != "CLOSED") { %>
-                        <a href="/closeticket/<%=ticket._id%>" class="btn btn-sm btn-outline-primary">Close Ticket</a>
-                        <% } %>
                     </div>
+                    <% if(ticket.status != "CLOSED") { %>
+                        <div class="card-header-admin" align="center">Add Comment</div>
+                        <div class="form" align="center">
+                            <form action="/user/comment" method="post">
+                                <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                                <div class="form-group">
+                                    <textarea name="usercomment" cols="68" rows="4" placeholder="Enter your comments here"></textarea>
+                                </div>
+                                <div class="form-group m-4">
+                                    <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
+                                </div>
+                            </form>
+                        </div>
+                        <% } %>
                     <div class="card-body" align="center">
-                       
-                    
-                        <p>Ticket Detail</p>
-                        <hr>
-                        <p>Ticket Category: <%= ticket.category %></p>
-                        <p>Description Of Complaint: <%= ticket.description %></p>
-                        <p>Attachments: 
-                        <a target="_blank" href="<%= ticket.attachment %>">
-                        <img src="/<%= ticket.attachment %>" alt="attachment">
-                        <div class="space"></div>
-                        </a></p>
                         <div class="comments">
                             <div class="comments-header bg-secondary text-white">
                                 <h5>Comments</h5>
@@ -95,25 +98,16 @@
                                     <% if(!ticket.usercomment) { %>
                                         <p>No comments from User.</p>
                                         <%}%> 
-                                    <%= ticket.usercomment %>
+                                        <% ticket.usercomment.forEach(comment => { %>
+                                            <p><%= comment %></p>
+                                        <%})%> 
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--<div class="card-footer-admin">-->
             
-                        <% if(ticket.status != "CLOSED") { %>
-                        <div class="card-header-admin" align="center">Add Comment</div>
-                        <div class="form" align="center">
-                            <form action="/user/comment" method="post">
-                                <input type="hidden" name="ticketid" value="<%=ticket._id%>">
-                                <textarea name="usercomment" cols="80" rows="7" placeholder="Enter your comments here"></textarea>
-                                <div class="form-group m-4">
-                                    <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
-                                </div>
-                            </form>
-                        </div>
-                        <% } %>
+                        
                 </div>
                 </div>
             </div>

@@ -7,13 +7,16 @@ const Ticket = require("../models/ticket");
 // home page
 exports.homepage = async (req, res) => {
     return res.render("homepage", {
+        user: {},
+        message: ""
     })
 }
 
 // create ticket form
 exports.ticketform = async (req, res) => {
     return res.render("createticket", {
-        message: ''
+        message: '',
+        user: {}
     })
 }
 
@@ -25,8 +28,9 @@ exports.createTicket = async (req, res) => {
         attachment = ""
     }
     else {
-        attachment = req.files[0].path
+        attachment = req.files[0].path.split("public\'")
     }
+
 
     let ticket = {
         fullname: req.body.fullname,
@@ -38,18 +42,20 @@ exports.createTicket = async (req, res) => {
         category: req.body.category,
         description: req.body.description,
         attachment,
-        date_created: moment(Date.now()).format("DD MM YYYY HH:mm")
+        date_created: moment(Date.now()).format("LLLL")
     }
 
     // create a new ticket
     Ticket.create(ticket).then(newticket => {
-        return res.render("createticket", {
-            message: "Your issue has been submitted successfully. Please check on the status after some time."
+        return res.render("homepage", {
+            message: "Your issue has been submitted successfully. Please check on the status after some time.",
+            user: {}
         })
     }).catch(err => {
         console.log(err)
-        return res.render("createticket", {
-            message: "Your request could not be completed, please contact your administrator."
+        return res.render("homepage", {
+            message: "Your request could not be completed, please contact your administrator.",
+            user: {}
         })
     })
 }
@@ -60,19 +66,22 @@ exports.editTicket = async () => {
     
     if (!ticket) {
         return res.render("tickets", {
-            message: "The specified ticket id was not found, please try again"
+            message: "The specified ticket id was not found, please try again",
+            user: {}
         })
     }
 
     return res.render("editticket", {
-        ticket
+        ticket,
+        user: {}
     })
 }
 
 // show track ticket page
 exports.trackTicketPage = async (req, res) => {
     return res.render("trackticket", {
-        message: ''
+        message: '',
+        user: {}
     })
 }
 
@@ -85,13 +94,15 @@ exports.trackTicket = async (req, res) => {
     if (tickets.length <= 0) {
         return res.render("trackticket", {
             tickets: [],
-            message: "You have not created any ticket yet, please create a new ticket with the button below."
+            message: "You have not created any ticket yet, please create a new ticket with the button below.",
+            user: {}
         })
     }
 
     return res.render("usertickets", {
         tickets,
-        message: ""
+        message: "",
+        user: {}
     })
 }
 
@@ -101,13 +112,15 @@ exports.userViewTicket = async (req, res) => {
     if (!ticket) {
         return res.render("trackticket", {
             tickets: [],
-            message: "Ticket not found, please contact your administrator."
+            message: "Ticket not found, please contact your administrator.",
+            user: {}
         })
     }
 
     return res.render('userticketinfo', {
         ticket,
-        message: ''
+        message: '',
+            user: {}
     })
 }
 
@@ -117,35 +130,16 @@ exports.userComment = async (req, res) => {
     if (!ticket) {
         return res.render("trackticket", {
             tickets: [],
-            message: "Ticket not found, please contact your administrator."
+            message: "Ticket not found, please contact your administrator.",
+            user: {}
         })
     }
+   ticket.usercomment.push(`${req.body.usercomment} @ ${moment(Date.now()).format("LLLL")}`)
+    ticket.save();
 
-    let comment;
-    if (ticket.usercomment == null && req.body.usercomment != "") {
-        comment = `${req.body.usercomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
-    }
-
-
-    if (ticket.usercomment != null && req.body.usercomment != "") {
-        comment = `${ticket.usercomment} ${req.body.usercomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
-}
-
-    let update = {
-        usercomment: comment,
-    }
-
-    await Ticket.findOneAndUpdate({ _id: req.body.ticketid }, update , { new: true }, (err, updatedticket) => {
-        if (err) {
-            return res.render('userticketinfo', {
-                ticket: updatedticket,
-                message: "Ticket not updated, please contact your administrator"
-            })
-        }
-        console.log(updatedticket)
         return res.render('userticketinfo', {
         message: 'Ticket has been updated',
-        ticket: updatedticket,
+        ticket,
+        user: {}
         })
-    })
 }

@@ -1,6 +1,6 @@
 <%- include('partials/dashheader') %>
 
-        <div class="centralize w-50 mt-4">
+        <div class="centralize w-75 mt-4">
             <div>
         <% if(message != '') { %>
             <div class="alert alert-secondary" role="alert">
@@ -11,8 +11,12 @@
             <div>
                 <div class="">
                     <div class="card-header">
-                        <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
                         <div>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-5 col-lg-6">
+                        <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
+                        <hr>
+                        <div class="float-left">
                             <p>Date Created:</p> <%= ticket.date_created%>
                         </div>
                         <% if(ticket.date_closed) { %>
@@ -30,28 +34,30 @@
                         <div>
                             <p>Ticket State:</p> <%= ticket.state%>
                         </div>
-                        <% if(ticket.status != "CLOSED") { %>
-                        <a href="/closeticket/<%=ticket._id%>" class="btn btn-sm btn-outline-primary">Close Ticket</a>
-                        <% } %>
+                        <div class="mt-4">
+                            <% if(ticket.status != "CLOSED") { %>
+                            <a href="/closeticket/<%=ticket._id%>" class="btn btn-sm btn-outline-primary">Close Ticket</a>
+                            <% } %>
+                        </div>
                     </div>
-                    <div class="card-body" align="center">
+                    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">
                         <p>Staff Contact Details</p>
                         <hr>
-                        <p>Staff Email: </p><p><%= ticket.email %></p>
-                        <p>Staff Phone: </p><p><%= ticket.phone %></p>
-                        <p>Staff SBU: </p><p><%= ticket.sbu.toUpperCase() %></p>
-                        <p>Staff Department: </p><p><%= ticket.department %></p>
+                        <p>Staff Email: <%= ticket.email %></p>
+                        <p>Staff Phone: <%= ticket.phone %></p>
+                        <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
+                        <p>Staff Department: <%= ticket.department %></p>
+                    </div>
+                    <div class="card-body" align="center">
                         <hr>
                         <p>Ticket Detail</p>
                         <hr>
                         <p>Ticket Category: <%= ticket.category %></p>
-                        <p>Description Of Complaint:</p>
-                        <p><%= ticket.description %></p>
-                        <p>Attachments:</p>
-                        <a target="_blank" href="/<%= ticket.attachment %>">
-                        <img src="/<%= ticket.attachment %>" alt="attachment">
-                        <div class="space"></div>
-                        </a>
+                        <p>Description Of Complaint: <%= ticket.description %></p>
+                        <p>Attachment:
+                            <img class="images" src="<%= ticket.attachment.split('public')[1] %>" alt="attachment">
+                            <div class="space"></div>
+                        </p>
                         <div class="comments">
                             <div class="comments-header bg-secondary text-white">
                                 <h5>Comments</h5>
@@ -61,10 +67,14 @@
                                     <span>Admin Comments</span>
                                 </div>
                                 <div class="card-body">
-                                    <% if(!ticket.admincomment) { %>
+                                    <% if(ticket.admincomment == "") { %>
                                         <p>No comments from Admin.</p>
                                         <%}%> 
-                                    <%= ticket.admincomment %>
+                                    <% ticket.admincomment.forEach(comment => { %>
+                                        <div class="comment">
+                                            <p><%= comment %></p>
+                                        </div>
+                                        <%})%> 
                                 </div>
                             </div>
                             <div class="card">
@@ -72,10 +82,14 @@
                                     <span>IT Officer Comments</span>
                                 </div>
                                 <div class="card-body">
-                                    <% if(!ticket.staffcomment) { %>
+                                    <% if(ticket.staffcomment == "") { %>
                                         <p>No comments from IT Officer.</p>
                                         <%}%> 
-                                    <%= ticket.staffcomment %>
+                                        <% ticket.staffcomment.forEach(comment => { %>
+                                            <div class="comment">
+                                                <p><%= comment %></p>
+                                            </div>
+                                            <%})%> 
                                 </div>
                             </div>
                             <div class="card">
@@ -83,11 +97,15 @@
                                     <span>User Comments</span>
                                 </div>
                                 <div class="card-body">
-                                    <% if(!ticket.usercomment) { %>
+                                    <% if(ticket.usercomment == "") { %>
                                         <p>No comments from User.</p>
                                         <%}%> 
-                                    <%= ticket.usercomment %>
-                                </div>
+                                    <% ticket.usercomment.forEach(comment => { %>
+                                        <div class="comment">
+                                            <p><%= comment %></p>
+                                        </div>
+                                        <%})%> 
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +115,9 @@
                         <div class="form">
                             <form action="/assignticket" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
-                                <textarea name="admincomment" cols="70" rows="7"></textarea>
+                                <div class="form-group">
+                                    <textarea name="admincomment" cols="105" rows="4" placeholder="Enter your comments here"></textarea>
+                                </div>
                                 <div class="form-group">
                                     <select class="form-control" name="staff" aria-placeholder="Staff" required>
                                     <option value=""disabled selected>Assign To Staff</option>

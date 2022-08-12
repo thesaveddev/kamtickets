@@ -17,7 +17,7 @@ exports.isAuthenticated = (req, res, next) => {
        //verify token
         jwt.verify(token, 'dontguessit', (err, user) => {
             if(err){
-                return res.render('login', {
+                return res.render('index', {
                     message: "Session expired, please login to continue"
                 });
             } 

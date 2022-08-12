@@ -1,7 +1,7 @@
 <%- include('partials/dashheader') %>
 
         <div class="centralize mt-4">
-          <div class="m-4">
+          <div class="float-left m-4">
             <h4>My Tickets</h4>
             <span><%= tickets.length %> Tickets</span>
           </div>
@@ -19,7 +19,7 @@
       <% tickets.reverse().forEach(ticket => { %>
         <tr>
           <td><%= ticket.subject%> </td>
-          <td><%= ticket.date%> </td>
+          <td><%= ticket.date_created%> </td>
           <td><%= ticket.status%> </td>
           <td><a href="/user/ticket/<%=ticket._id%>" class="btn btn-outline-primary">View Ticket</a></td>
         </tr>

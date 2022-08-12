@@ -58,15 +58,15 @@ staffid: {
 staffname: {
     type: String
     },
-admincomment: {
+admincomment: [{
     type: String
-    },
-usercomment: {
+    }],
+usercomment: [{
     type: String
-    },
-staffcomment: {
+    }],
+staffcomment: [{
     type: String    
-    },
+    }],
 closed_by: {
     type: String    
 }

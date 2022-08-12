@@ -34,17 +34,16 @@
                     <div class="card-body" align="center">
                         <p>Staff Contact Details</p>
                         <hr>
-                        <p>Staff Email: </p><p><%= ticket.email %></p>
-                        <p>Staff Phone: </p><p><%= ticket.phone %></p>
-                        <p>Staff SBU: </p><p><%= ticket.sbu.toUpperCase() %></p>
-                        <p>Staff Department: </p><p><%= ticket.department %></p>
+                        <p>Staff Email: <%= ticket.email %></p>
+                        <p>Staff Phone: <%= ticket.phone %></p>
+                        <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
+                        <p>Staff Department: <%= ticket.department.toUpperCase() %></p>
                         <hr>
                         <p>Ticket Detail</p>
                         <hr>
                         <p>Ticket Category: <%= ticket.category %></p>
-                        <p>Description Of Complaint:</p>
-                        <p><%= ticket.description %></p>
-                        <p>Attachments:</p>
+                        <p>Description Of Complaint: <%= ticket.description %></p>
+                        <p>Attachments:
                         <a target="_blank" href="/<%= ticket.attachment %>">
                         <img src="/<%= ticket.attachment %>" alt="attachment">
                         <div class="space"></div>
@@ -94,7 +93,9 @@
                         <div class="form">
                             <form action="/staff/ticket/<%= ticket._id %>" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
-                                <textarea name="staffcomment" cols="70" rows="6" placeholder="Enter comments"></textarea>
+                                <div class="form-group">
+                                    <textarea name="staffcomment" cols="68" rows="4" placeholder="Enter comments"></textarea>
+                                </div>
                                 <div class="form-group">
                                     <select class="form-control" name="status" required>
                                     <option value=""disabled selected>Change Ticket Status</option>

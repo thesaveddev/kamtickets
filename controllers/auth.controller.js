@@ -2,7 +2,6 @@ const User = require('../models/adminuser');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const Staff = require('../models/staff');
-const Ticket = require('../models/ticket');
 
 // show login page
 exports.loginpage = async (req, res) => {
@@ -79,7 +78,7 @@ exports.signIn = async (req, res) => {
             username: user.username,
             id: user._id,
             email: user.email,
-            fullname: user.staffname,
+            fullname: user.fullname,
             phone: user.phone,
             sbu: user.sbu,
             role: user.role,

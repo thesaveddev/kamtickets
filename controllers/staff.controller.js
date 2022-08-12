@@ -12,14 +12,16 @@ exports.allStaffTickets = async (req, res) => {
         return res.render('allstafftickets', {
             message: "No tickets assigned yet.",
             tickets,
-            pagetitle: "My Tickets"
+            pagetitle: "My Tickets",
+        user: req.user
         })
     }
 
     return res.render('allstafftickets', {
         message: "",
         tickets,
-        pagetitle: "My Tickets"
+        pagetitle: "My Tickets",
+        user: req.user
     })
 }
 
@@ -31,14 +33,16 @@ exports.staffOpenTickets = async (req, res) => {
         return res.render('allstafftickets', {
             message: "No open ticket.",
             tickets,
-            pagetitle: "Open Tickets"
+            pagetitle: "Open Tickets",
+        user: req.user
         })
     }
 
     return res.render('allstafftickets', {
         message: "",
         tickets,
-        pagetitle: "Open Tickets"
+        pagetitle: "Open Tickets",
+        user: req.user
     })
 }
 
@@ -50,14 +54,16 @@ let tickets = await Ticket.find({ staffid: req.user.id, status: "IN PROGRESS" })
         return res.render('allstafftickets', {
             message: "No in progress ticket.",
             tickets,
-            pagetitle: "In Progress Tickets"
+            pagetitle: "In Progress Tickets",
+        user: req.user
         })
     }
 
     return res.render('allstafftickets', {
         message: "",
         tickets,
-        pagetitle: "In Progress Tickets"
+        pagetitle: "In Progress Tickets",
+        user: req.user
     })
 }
 
@@ -69,14 +75,16 @@ let tickets = await Ticket.find({ staffid: req.user.id, status: "CLOSED" });
         return res.render('allstafftickets', {
             message: "No closed ticket.",
             tickets,
-            pagetitle: "Closed Tickets"
+            pagetitle: "Closed Tickets",
+        user: req.user
         })
     }
 
     return res.render('allstafftickets', {
         message: "",
         tickets,
-        pagetitle: "Closed Tickets"
+        pagetitle: "Closed Tickets",
+        user: req.user
     })
 }
 
@@ -92,13 +100,15 @@ exports.staffFindTickets = async (req, res) => {
         return res.render("allstafftickets", {
             tickets: [],
             message: "No result found.",
-            pagetitle: "Search Result"
+            pagetitle: "Search Result",
+        user: req.user
         })
     }
     return res.render("allstafftickets", {
         tickets,
         message: `${tickets.length} results found.`,
-        pagetitle: "Search Result"
+        pagetitle: "Search Result",
+        user: req.user
     })
 }
 
@@ -112,19 +122,22 @@ exports.viewStaffTicket = async (req, res) => {
         return res.render('allstafftickets', {
             message: "Ticket not found",
             pagetitle: "All Tickets",
-            tickets
+            tickets,
+        user: req.user
         })
     }
 
     return res.render('staffticketinfo', {
         ticket,
-        message: ""
+        message: "",
+        user: req.user
     })
 
 }
 
 // update ticket
 exports.updateTicket = async (req, res) => {
+    try {
     let tickets = await Ticket.find({ staffid: req.user.id });
     let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
 
@@ -132,47 +145,43 @@ exports.updateTicket = async (req, res) => {
         return res.render('allstaffticket', {
             tickets,
             pagetitle: "All Tickets",
-            message: "The specified ticket does not exist."
+            message: "The specified ticket does not exist.",
+        user: req.user
         })
     }
 
     let closed, closed_by;
-    
+
     if (req.body.status == "CLOSED") {
-        closed = moment(Date.now()).format("DD MM YYYY HH:mm"),
+        closed = moment(Date.now()).format("LLLL"),
         closed_by = req.user.fullname
     }
-    let comment;
-    if (ticket.staffcomment == null && req.body.staffcomment != "") {
-        comment = `${req.body.staffcomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
+
+    if(req.body.staffcomment) {
+        ticket.staffcomment.push(`${req.body.staffcomment} @ ${moment(Date.now()).format("LLLL")}`)
     }
 
+        ticket.status = req.body.status;
+        ticket.date_closed = closed;
+        ticket.closed_by = closed_by;
+        ticket.save();
 
-    if (ticket.staffcomment != null && req.body.staffcomment != "") {
-        comment = `${ticket.staffcomment} ${req.body.staffcomment} @ ${moment(Date.now()).format("DD MM YYYY HH:mm")}`
-}
-
-    let update = {
-        status: req.body.status,
-        staffcomment: comment,
-        date_closed: closed,
-        closed_by
-    }
-
-    await Ticket.updateOne({ _id: req.params.ticketid, staffid: req.user.id }, update , { new: true }, async (err, updatedticket) => {
-        if (err) {
-            return res.render('staffticketinfo', {
-                ticket,
-                message: "Ticket not updated, please contact your administrator"
-            })
-        }
-    let tickets = await Ticket.find({ staffid: req.user.id });
         
         return res.render('allstafftickets', {
         message: 'Ticket has been updated',
         tickets,
-        pagetitle: 'All Tickets'
+        pagetitle: 'All Tickets',
+        user: req.user
     })
-    })
-    
+    } catch (error) {
+        console.log(error)
+        let tickets = await Ticket.find({ staffid: req.user.id });
+
+            return res.render('allstafftickets', {
+                message: 'An error occured. Ticket was not updated.',
+                // tickets,
+                pagetitle: 'All Tickets',
+                user: req.user
+            })
+    }
 }
