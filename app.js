@@ -19,8 +19,6 @@ app.use(bodyParser.urlencoded({
    parameterLimit: 50000
 }));
 
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
 
 db.connect();
 
