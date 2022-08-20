@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 const path = require('path')
 
+const mailer = require('./utils/mailer');
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({
 
 
 db.connect();
+// mailer.validateSMTP()
 
 //declare routes
 const routes = require("./routes")

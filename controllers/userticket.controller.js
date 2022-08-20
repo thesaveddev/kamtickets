@@ -134,7 +134,14 @@ exports.userComment = async (req, res) => {
             user: {}
         })
     }
-   ticket.usercomment.push(`${req.body.usercomment} @ ${moment(Date.now()).format("LLLL")}`)
+
+    let comment = {
+        user: ticket.fullname,
+        date: moment(Date.now()).format("LLLL"),
+        comment: req.body.comment
+    }
+
+   ticket.comments.push(comment);
     ticket.save();
 
         return res.render('userticketinfo', {

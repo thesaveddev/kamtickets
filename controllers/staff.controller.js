@@ -138,7 +138,6 @@ exports.viewStaffTicket = async (req, res) => {
 // update ticket
 exports.updateTicket = async (req, res) => {
     try {
-    let tickets = await Ticket.find({ staffid: req.user.id });
     let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
 
     if (!ticket) {
@@ -157,16 +156,13 @@ exports.updateTicket = async (req, res) => {
         closed_by = req.user.fullname
     }
 
-    if(req.body.staffcomment) {
-        ticket.staffcomment.push(`${req.body.staffcomment} @ ${moment(Date.now()).format("LLLL")}`)
-    }
-
         ticket.status = req.body.status;
         ticket.date_closed = closed;
         ticket.closed_by = closed_by;
         ticket.save();
 
-        
+        let tickets = await Ticket.find({ staffid: req.user.id });
+
         return res.render('allstafftickets', {
         message: 'Ticket has been updated',
         tickets,
@@ -184,4 +180,34 @@ exports.updateTicket = async (req, res) => {
                 user: req.user
             })
     }
+}
+
+// staff comment
+exports.staffComment = async (req, res) => {
+    let ticket = await Ticket.findOne({ _id: req.body.ticketid });
+    
+    let comment = {
+        user: req.user.fullname,
+        date: moment(Date.now()).format("LLLL"),
+        comment: req.body.comment
+    }
+
+   ticket.comments.push(comment);
+    ticket.save();
+
+        return res.render('userticketinfo', {
+        message: 'Ticket has been updated',
+        ticket,
+        user: req.user
+        })
+    }
+
+
+// Staff Administration Section
+// create staff form
+exports.createStaffForm = async (req, res) => {
+    return res.render("createstaff", {
+            message: "",
+            user: req.user
+        })
 }

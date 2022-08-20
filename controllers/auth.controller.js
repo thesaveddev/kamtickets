@@ -160,7 +160,9 @@ exports.chooseDashboard = async (req, res) => {
 
 // show access restriction page
 exports.noAccess = (req, res) => {
-    return res.render("noaccess");
+    return res.render("noaccess", {
+        user: {}
+    });
 }
 
 // log out

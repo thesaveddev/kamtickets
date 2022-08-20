@@ -32,7 +32,7 @@
                         <% } %>
                         <div>
                             <p>Assigned To: <% if(ticket.state == "UNASSIGNED") { %>
-                                <span class="bg-danger bold text-white p-1"> Not Yet Assigned</span></p>
+                                <span class="bg-danger bold text-white p-1 m-2"> Not Yet Assigned</span></p>
                                 <% } %>
                             </div>
                             <div>
@@ -50,67 +50,43 @@
                           </div>
                     </div>
                     <% if(ticket.status != "CLOSED") { %>
-                        <div class="card-header-admin" align="center">Add Comment</div>
+                        <div class="card-header-admin m-4" align="center">Add Comment</div>
                         <div class="form" align="center">
                             <form action="/user/comment" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
                                 <div class="form-group">
-                                    <textarea name="usercomment" cols="68" rows="4" placeholder="Enter your comments here"></textarea>
+                                    <textarea name="comment" class="form-control" cols="68" rows="4" placeholder="Enter your comments here" required></textarea>
                                 </div>
                                 <div class="form-group m-4">
-                                    <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
+                                    <button type="submit" class="btn btn-outline-primary">Add Comment</button>
                                 </div>
                             </form>
                         </div>
                         <% } %>
                     <div class="card-body" align="center">
-                        <div class="comments">
-                            <div class="comments-header bg-secondary text-white">
+                        <div class="comments m-2">
                                 <h5>Comments</h5>
+                                <% ticket.comments.reverse().forEach(comment => { %>
+                            <div class="card p-3 m-2">
+
+                                <div class="d-flex justify-content-between align-items-center">
+        
+                              <div class="user d-flex flex-row align-items-center">
+        
+                                <img src="/images/pp.jpg" width="30" class="user-img rounded-circle mr-2">
+                                <span><small class="font-weight-bold text-primary"><%= comment.user.split(' ')[0] %></small> <small class=""><%= comment.comment %></small></span>
+                              </div>
+                              <small><%= comment.date %></small>
+        
+                              </div>        
                             </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>Admin Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.admincomment) { %>
-                                        <p>No comments from Admin.</p>
-                                        <%}%> 
-                                    <%= ticket.admincomment %>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>IT Officer Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.staffcomment) { %>
-                                        <p>No comments from IT Officer.</p>
-                                        <%}%> 
-                                    <%= ticket.staffcomment %>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>User Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.usercomment) { %>
-                                        <p>No comments from User.</p>
-                                        <%}%> 
-                                        <% ticket.usercomment.forEach(comment => { %>
-                                            <p><%= comment %></p>
-                                        <%})%> 
-                                </div>
-                            </div>
+                            <% }) %>
                         </div>
                     </div>
                     <!--<div class="card-footer-admin">-->
-            
-                        
                 </div>
                 </div>
             </div>
-        </div>
+        </div> 
 
 <%- include('partials/dashFooter') %>

@@ -1,6 +1,6 @@
 <%- include('partials/dashheader') %>
 
-        <div class="centralize w-50 mt-4">
+        <div class="centralize w-75 mt-4">
             <div>
         <% if(message != '') { %>
             <div class="alert alert-secondary" role="alert">
@@ -17,7 +17,7 @@
                         </div>
                         <div>
                             <p>Assigned To:</p><% if(ticket.state == "UNASSIGNED") { %>
-                                <p>Not Yet Assigned</p>
+                                <p class="m-2">Not Yet Assigned</p>
                                 <% } %>
                                 <%=ticket.staffname%>
                         </div>
@@ -48,68 +48,60 @@
                         <img src="/<%= ticket.attachment %>" alt="attachment">
                         <div class="space"></div>
                         </a>
-                        <div class="comments">
-                            <div class="comments-header bg-secondary text-white">
-                                <h5>Comments</h5>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>Admin Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.admincomment) { %>
-                                        <p>No comments from Admin.</p>
-                                        <%}%> 
-                                    <%= ticket.admincomment %>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>IT Officer Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.staffcomment) { %>
-                                        <p>No comments from IT Officer.</p>
-                                        <%}%> 
-                                    <%= ticket.staffcomment %>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <span>User Comments</span>
-                                </div>
-                                <div class="card-body">
-                                    <% if(!ticket.usercomment) { %>
-                                        <p>No comments from User.</p>
-                                        <%}%> 
-                                    <%= ticket.usercomment %>
-                                </div>
-                            </div>
-                        </div>
+                        </p>
                     </div>
                     <div class="card-footer">
                         <% if(ticket.status != "CLOSED") { %>
-                        <div class="card-header">Staff Comment</div>
+                        <div class="card-header" align="center">Update Ticket</div>
                         <div class="form">
                             <form action="/staff/ticket/<%= ticket._id %>" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
-                                <div class="form-group">
-                                    <textarea name="staffcomment" cols="68" rows="4" placeholder="Enter comments"></textarea>
-                                </div>
                                 <div class="form-group">
                                     <select class="form-control" name="status" required>
                                     <option value=""disabled selected>Change Ticket Status</option>
                                         <option value="OPEN">OPEN</option>
                                         <option value="IN PROGRESS">IN PROGRESS</option>
                                         <option value="CLOSED">CLOSED</option>
-                                </select>
+                                    </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" align="center">
                                     <button type="submit" class="btn btn-outline-primary">Update Ticket</button>
                                 </div>
                             </form>
+
                         </div>
+                        <div class="comments m-2" align="center">
+                            <div class="card-header">Add Comments</div>
+                        <div class="form" align="center">
+                            <form action="/staff/comment" method="post">
+                                <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                                <div class="form-group">
+                                    <textarea name="comment" class="form-control" cols="68" rows="4" placeholder="Enter your comments here"></textarea>
+                                </div>
+                                <div class="form-group m-4">
+                                    <button type="submit" class="btn btn-outline-primary">Add Comment</button>
+                                </div>
+                            </form>
+                        </div>
+                            <h5>Comments</h5>
+                            <% ticket.comments.reverse().forEach(comment => { %>
+                        <div class="card p-3 m-2">
+
+                            <div class="d-flex justify-content-between align-items-center">
+    
+                          <div class="user d-flex flex-row align-items-center">
+    
+                            <img src="/images/pp.jpg" width="30" class="user-img rounded-circle mr-2">
+                            <span><small class="font-weight-bold text-primary"><%= comment.user.split(' ')[0] %></small> <small class=""><%= comment.comment %></small></span>
+                          </div>
+                          <small><%= comment.date %></small>
+    
+                          </div>        
+                        </div>
+                        <% }) %>
+                    </div>
                         <% } %>
+                    </div>
                     </div>
                 </div>
             </div>

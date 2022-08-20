@@ -69,7 +69,7 @@ app.get('/ticket/:ticketid', authCheck.isAuthenticated, AdminTicketController.vi
 app.post('/assignticket', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.assignTicket);
 app.get('/closeticket/:ticketid', authCheck.isAuthenticated, authCheck.isAuthenticated, AdminTicketController.closeTicket);
 app.post('/findtickets', authCheck.isAuthenticated, authCheck.isAdmin, authCheck.isAuthenticated, AdminTicketController.findTickets);
-
+app.post('/admin/comment', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.adminComment);
 
 // staff ticket management
 app.get('/staffdashboard', authCheck.isAuthenticated, StaffTicketController.allStaffTickets);
@@ -79,6 +79,8 @@ app.get('/staffclosedtickets', authCheck.isAuthenticated, StaffTicketController.
 app.post('/stafffindtickets', authCheck.isAuthenticated, StaffTicketController.staffFindTickets);
 app.get('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.viewStaffTicket);
 app.post('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.updateTicket);
+app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staffComment);
+
 
 
 

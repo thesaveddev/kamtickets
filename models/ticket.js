@@ -35,9 +35,9 @@ date_created: {
 date_closed: {
     type: String,
     },
-attachment: {
+attachment: [{
     type: String,
-    },
+    }],
 description: {
     type: String,
     required: true
@@ -52,21 +52,23 @@ state: {
     enum: ["ASSIGNED", "UNASSIGNED"],
     default: "UNASSIGNED"
     },
+comments: [{
+    user: {
+        type: String
+    },
+    date: {
+        type:String
+    },
+    comment: {
+        type: String
+    }
+}],
 staffid: {
     type: String
     },
 staffname: {
     type: String
     },
-admincomment: [{
-    type: String
-    }],
-usercomment: [{
-    type: String
-    }],
-staffcomment: [{
-    type: String    
-    }],
 closed_by: {
     type: String    
 }

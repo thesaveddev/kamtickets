@@ -145,7 +145,6 @@ exports.viewTicket = async (req, res) => {
         message: "",
         user: req.user
     })
-
 }
 
 // assign ticket
@@ -171,9 +170,6 @@ exports.assignTicket = async (req, res) => {
         })
     }
 
-    if(req.body.admincomment) {
-        ticket.admincomment.push(`${req.body.admincomment} @ ${moment(Date.now()).format("LLLL")}`)
-    }
 
         ticket.state = "ASSIGNED";
         ticket.staffid = staff._id;
@@ -238,6 +234,25 @@ exports.findTickets = async (req, res) => {
         user: req.user
     })
 }
+
+exports.adminComment = async (req, res) => {
+    let ticket = await Ticket.findOne({ _id: req.body.ticketid });
+    
+    let comment = {
+        user: req.user.fullname,
+        date: moment(Date.now()).format("LLLL"),
+        comment: req.body.comment
+    }
+
+   ticket.comments.push(comment);
+    ticket.save();
+
+        return res.render('userticketinfo', {
+        message: 'Ticket has been updated',
+        ticket,
+        user: req.user
+        })
+    }
 
 
 // Staff Administration Section

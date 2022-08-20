@@ -4,7 +4,6 @@ exports.sendMail = async (account, mailOptions) => {
     try {
           // create transporter and authenticate user mail address
           let transporter = nodemailer.createTransport({
-            service: "gmail",
             host: account.smtp_server,
             port: account.port,
             secure: false,
@@ -28,13 +27,13 @@ exports.sendMail = async (account, mailOptions) => {
 exports.validateSMTP = async (account, mailOptions) => {
           // create transporter and authenticate user mail address
           let transporter = nodemailer.createTransport({
-            service: account.smtp_username.split('@')[1].split('.')[0],
-            host: account.smtp_server,
-            port: account.port,
+            // service: account.smtp_username.split('@')[1].split('.')[0],
+            host: 'mail.kamindustries.com.ng',
+            port: 465,
             secure: false,
             auth: {
-              user: account.smtp_username,
-              pass: account.smtp_password
+              user: "opeyemi.olorunfemi@kamindustries.com.ng",
+              pass: "password123$"
             },
           });
   
@@ -42,6 +41,7 @@ exports.validateSMTP = async (account, mailOptions) => {
           if (error) {
             console.log(error);
           } else {
+            console.log('Valid SMTP Details')
             return true
           }
         });

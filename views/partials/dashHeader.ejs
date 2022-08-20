@@ -18,10 +18,11 @@
     
     </ul>
     <span class="navbar-text">
-    <a class="text-white" href="/admin/dashboard">Admin</a>
+    <a class="mr-1 text-white btn btn-outline-primary" href="/admin/dashboard">Admin</a>
     <%if(user.fullname) { %>
-      <span class=""><%=user.fullname%></span>
-      <a class="ml-4 text-white" href="/logout">Logout</a>
+      <img src="/images/pp.jpg" class="rounded-circle profile-img">
+      <span class="username text-white"><%=user.fullname%></span>
+      <a class="ml-1 text-white btn btn-outline-primary" href="/logout">Logout</a>
     <%} %>
     </span>
   </div>
