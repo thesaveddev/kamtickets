@@ -6,6 +6,7 @@ const authController = require('./controllers/auth.controller');
 const UserTicketController = require('./controllers/userticket.controller');
 const AdminTicketController = require('./controllers/admin.controller');
 const StaffTicketController = require('./controllers/staff.controller');
+const ReportController = require('./controllers/reports.controller');
 
 
 
@@ -84,7 +85,7 @@ app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staf
 
 
 //report module
-
+app.get('/reports', authCheck.isAuthenticated, ReportController.reportDashboard);
 
 
 module.exports = app

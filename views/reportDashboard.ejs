@@ -1,0 +1,60 @@
+<%- include('partials/dashheader') %>
+
+    <div class="centralize mt-4">
+        <div class="">
+            <div class="page-title"><h3>Reports</h3></div>
+        </div>
+        <!-- <div class="admin-top-space"></div> -->
+        <div class="card-holder pl-5" align="center">
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>All Tickets</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= allTickets %> Tickets</p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Open Tickets</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= openTickets %> Tickets</p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Closed Tickets</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= closedTickets %> Tickets</p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Assigned Tickets</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= assignedTickets %> Tickets</p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Unassigned Tickets</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= unassignedTickets %> Tickets</p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Tickets In Progress</p>
+                </div>
+                <div class="admin-div-body">
+                    <p><%= inProgresstickets %> Tickets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('partials/dashFooter') %>
