@@ -178,7 +178,9 @@ exports.signIn = async (req, res) => {
 
 // show choose dashboard page
 exports.chooseDashboard = async (req, res) => {
-    return res.render('choosedashboard');
+    return res.render('choosedashboard', {
+        user: req.user
+    });
 }
 
 // show access restriction page
