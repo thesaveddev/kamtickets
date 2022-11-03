@@ -2,6 +2,7 @@ const User = require('../models/adminuser');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const Staff = require('../models/staff');
+const Mailer = require('../utils/mailer');
 
 // show login page
 exports.loginpage = async (req, res) => {
@@ -10,51 +11,73 @@ exports.loginpage = async (req, res) => {
         });
     }
     
-// create user
+// show login page
+exports.createAdminForm = async (req, res) => {
+    
+    return res.status(200).render('createadmin', {
+        message: '',
+        user: req.user
+        });
+    }
+    
+// create admin user
 exports.createUser = async (req, res) => { 
     const password = await bcrypt.hash(req.body.password, 10);
 
     let user = {
-        username: req.body.username,
         email: req.body.email,
-        fullname: req.body.fname,
+        fullname: req.body.fullname,
         phone: req.body.phone,
         sbu: req.body.sbu,
-        role: req.body.role,
         password: password
     }
-
-    // check username
-    const username = await User.findOne({ username : req.body.username })
-    if (username) {
-        return res.status(404).render('regform', {
-                message: 'username already registered.'
-            })
-    }    
 
     // check email
     const email = await User.findOne({ email : req.body.email })
     if (email) {
-        return res.status(404).render('regform', {
-                message: 'email already registered.'
+        return res.status(404).render('createadmin', {
+            message: 'Email Already Registered.',
+            user: req.user
             })
     }
     
     await User.create(user).then(user => {
         // send account details to user's email
+        let mailOptions = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: user.email, // list of receivers
+            subject: "Welcome To Kam IT", // Subject line
+            html: `<p>Dear ${user.fullname}, please find below your login details for the Kam Ticket App.
+                <br>
+                Username: ${user.email} <span> 
+                <br>
+                Password: ${req.body.password}  </span>
+            </p>`
+        }
+                    
+        Mailer.sendMail(mailOptions);
+
+         return res.status(404).render('createadmin', {
+            message: 'Admin Created Successfully.',
+            user: req.user
+            })
+        
         
     }).catch(err => {
-        return res.status(404).render('regform', {
-            message: 'an error occured, please check your details.'
+        console.log(err)
+        return res.status(404).render('createadmin', {
+            message: 'an error occured, please check your details.',
+            user: req.user
         })
     })
 }
 
 // sign user in
 exports.signIn = async (req, res) => {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ email: req.body.username });
     const staff = await Staff.findOne({ email: req.body.username });
-
+        console.log('user', user)
+        console.log('staff', staff)
     try {
         
         // if there's no user and no staff

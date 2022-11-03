@@ -30,7 +30,8 @@ const upload = multer({ storage });
 // authentication
 app.get('/admin', authController.loginpage);
 app.post('/login', authController.signIn);
-app.post('/register', authController.createUser);
+app.get('/register', authCheck.isAuthenticated, authCheck.isAdmin, authController.createAdminForm);
+app.post('/register', authCheck.isAuthenticated, authCheck.isAdmin, authController.createUser);
 app.get('/logout', authController.logout);
 app.get('/choosedashboard', authController.chooseDashboard)
 app.get('/noaccess', authController.noAccess);
@@ -81,6 +82,8 @@ app.get('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketControl
 app.post('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.updateTicket);
 app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staffComment);
 
+
+//report module
 
 
 

@@ -337,9 +337,8 @@ exports.createStaff = async (req, res) => {
         // send staff login details to staff
         let mailOptions = {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
-            to: "bashir.ganiyu@kamholding.net", // list of receivers
+            to: staff.email, // list of receivers
             subject: "Welcome To Kam IT", // Subject line
-            // text: "Welcome to Kam Holding IT Team, Please find your credentials below.", a// plain text body
             html: `<p>Dear ${staff.staffname}, please find below your login details for the Kam Ticket App.
                 <br>
                 Username: ${staff.email} <span> 

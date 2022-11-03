@@ -48,16 +48,23 @@ exports.createTicket = async (req, res) => {
 
     // create a new ticket
     Ticket.create(ticket).then(newticket => {
+        let adminMail;
+        if (newticket.sbu == "jimba") {
+            adminMail = 'paul.udochi@kamholding.net'
+        }else if (newticket.sbu == "sagamu") {
+            adminMail = "sikiru.olawale@kamindustries.com.ng"
+        } else {
+            adminMail = "bashir.ganiyu@kamholding.net"
+        }
         // send mail to admin
-        let adminMail = {
+        let mail = {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
-            to: 'bashir.ganiyu@kamholding.net', // list of receivers
+            to: adminMail, // list of receivers
             subject: "New Ticket Created", // Subject line
-            // text: "Welcome to Kam Holding IT Team, Please find your credentials below.", a// plain text body
-            html: `<p>Dear Admin, A New Ticket Has Been Created by ${newticket.fullname}.</p>`
+            html: `<p>Dear Admin, A New Ticket Has Been Created by ${newticket.fullname} in ${newticket.sbu}.</p>`
         }
         
-        Mailer.sendMail(adminMail);
+        Mailer.sendMail(mail);
         return res.render("homepage", {
             message: "Your issue has been submitted successfully. Please check on the status after some time.",
             user: {}
