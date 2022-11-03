@@ -1,4 +1,5 @@
 const moment = require('moment');
+const Mailer = require('../utils/mailer');
 // import dependencies
 const Ticket = require("../models/ticket");
 
@@ -47,6 +48,16 @@ exports.createTicket = async (req, res) => {
 
     // create a new ticket
     Ticket.create(ticket).then(newticket => {
+        // send mail to admin
+        let adminMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: 'bashir.ganiyu@kamholding.net', // list of receivers
+            subject: "New Ticket Created", // Subject line
+            // text: "Welcome to Kam Holding IT Team, Please find your credentials below.", a// plain text body
+            html: `<p>Dear Admin, A New Ticket Has Been Created by ${newticket.fullname}.</p>`
+        }
+        
+        Mailer.sendMail(adminMail);
         return res.render("homepage", {
             message: "Your issue has been submitted successfully. Please check on the status after some time.",
             user: {}

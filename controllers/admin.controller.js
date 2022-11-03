@@ -170,12 +170,34 @@ exports.assignTicket = async (req, res) => {
         })
     }
 
-
         ticket.state = "ASSIGNED";
         ticket.staffid = staff._id;
         ticket.staffname = staff.staffname;
         ticket.save();
 
+    let staffMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: staff.email, // list of receivers
+            subject: "New Ticket Assigned", // Subject line
+            html: `<p>Dear ${staff.staffname}, A new ticket has been assigned to you, kindly provide a swift action on the issue Regards.
+            <b> Ticket Details <b/>
+                <br>
+                <p> Title: ${ticket.subject} </p>
+                <br>
+                <p> Opened By: ${ticket.fullname} </p>
+            </p>`
+        }
+    
+        let userMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "Ticket Assigned", // Subject line
+            html: `<p>Dear ${ticket.fullname}, Your ticket, ${ticket.subject}, has been assigned to ${ticket.staffname}, kindly reach him on ${staff.phone}.</p>`
+        }
+                    
+        Mailer.sendMail(staffMail);
+        Mailer.sendMail(userMail);
+    
     let tickets = await Ticket.find();
         
         return res.render('alltickets', {
@@ -205,6 +227,19 @@ exports.closeTicket = async (req, res) => {
     ticket.closed_by = req.user.fullname
     ticket.save();
 
+// send mail to user
+    let userMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "Ticket Closed", // Subject line
+        html: `<p>Dear ${ticket.fullname}, Your ticket, ${ticket.subject}, has been marked as closed, if there are any objections, kindly visit the portal to reopen your ticket
+        <br>
+        Warm regards.
+        </p>`
+        }
+                    
+    Mailer.sendMail(userMail);
+    
     return res.render('ticketinfo', {
         message: "Ticket has been closed.",
         ticket,
@@ -246,6 +281,15 @@ exports.adminComment = async (req, res) => {
 
    ticket.comments.push(comment);
     ticket.save();
+
+    let userMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "New Comment", // Subject line
+            html: `<p>Dear ${ticket.fullname}, A New Comment Has Been Made On Your ticket, ${ticket.subject}, kindly track yur ticket on the portal.</p>`
+        }
+                    
+        Mailer.sendMail(userMail);
 
         return res.render('userticketinfo', {
         message: 'Ticket has been updated',
@@ -290,24 +334,25 @@ exports.createStaff = async (req, res) => {
 
 
     Staff.create(staff).then(staff => {
-        // mail staff login details to staff
+        // send staff login details to staff
         let mailOptions = {
-                        from: 'Kam Tickets',
-                        to: staff.email,
-                        subject: 'Account Tickets - Kam Tickets',
-                        html: `<p>Dear <%= staff.staffname %>, please find below your login details for the Kam Ticket App.</p>`
-                    };
-                    let mailconfig = {
-                        email_id: process.env.MAIL_FROM,
-                        smtp_server: process.env.MAIL_HOST,
-                        smtp_port: process.env.MAIL_PORT,
-                        password: process.env.MAIL_PASSWORD
-                    }
-                    // Mailer.sendMail(mailconfig, mailOptions);
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: "bashir.ganiyu@kamholding.net", // list of receivers
+            subject: "Welcome To Kam IT", // Subject line
+            // text: "Welcome to Kam Holding IT Team, Please find your credentials below.", a// plain text body
+            html: `<p>Dear ${staff.staffname}, please find below your login details for the Kam Ticket App.
+                <br>
+                Username: ${staff.email} <span> 
+                <br>
+                Password: ${req.body.password}  </span>
+            </p>`
+        }
+                    
+        Mailer.sendMail(mailOptions);
 
         return res.render('createstaff', {
             message: "Staff profile has been created!",
-        user: req.user
+            user: req.user
         })
     }).catch(err => {
         console.log(err);

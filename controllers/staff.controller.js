@@ -1,6 +1,7 @@
 // import dependences
 const Ticket = require('../models/ticket');
 const moment = require('moment');
+const Mailer = require('../utils/mailer');
 
 
 
@@ -161,6 +162,17 @@ exports.updateTicket = async (req, res) => {
         ticket.closed_by = closed_by;
         ticket.save();
 
+        // send mail to user
+        let mailOptions = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "Ticket Closed", // Subject line
+            html: `<p>Dear ${ticket.fullname}, Your ticket ${ticket.subject} has been closed by ${ticket.closed_by}.
+            </p>`
+        }
+                    
+        Mailer.sendMail(mailOptions);
+
         let tickets = await Ticket.find({ staffid: req.user.id });
 
         return res.render('allstafftickets', {
@@ -194,6 +206,16 @@ exports.staffComment = async (req, res) => {
 
    ticket.comments.push(comment);
     ticket.save();
+
+    // send notification mail
+    let userMail = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "New Comment", // Subject line
+            html: `<p>Dear ${ticket.fullname}, A New Comment Has Been Made On Your ticket, ${ticket.subject}, kindly track yur ticket on the portal.</p>`
+        }
+                    
+        Mailer.sendMail(userMail);
 
         return res.render('userticketinfo', {
         message: 'Ticket has been updated',
