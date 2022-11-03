@@ -1,0 +1,36 @@
+<%- include('partials/dashheader') %>
+
+        <div class="m-3 centralize">
+          <div class="m-4">
+            <a href="/addstaff" class="btn btn-sm btn-outline-primary">Add New Staff</a>
+            <a href="/register" class="btn btn-sm btn-outline-primary">Add New Admin</a>
+            <a href="/alladmins" class="btn btn-sm btn-outline-primary">All Admins</a>
+          </div>
+          <div class="mt-2"></div>
+           <table class="table table-striped">
+            <div>
+            </div>
+  <thead>
+    <tr>
+      <th scope="col">Full Name</th>
+      <th scope="col">SBU</th>
+      <th scope="col">Role</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% admins.reverse().forEach(admin => { %>
+        <tr>
+          <td><%= admin.fullname%> </td>
+          <td><%= admin.sbu.toUpperCase()%> </td>
+          <td><%= admin.role%> </td>
+          <td><%= admin.email%> </td>
+          <td><%= admin.phone%> </td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>
+        </div>
+
+<%- include('partials/dashFooter') %>
