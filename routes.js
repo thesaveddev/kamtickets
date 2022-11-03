@@ -36,6 +36,7 @@ app.post('/register', authCheck.isAuthenticated, authCheck.isAdmin, authControll
 app.get('/logout', authController.logout);
 app.get('/choosedashboard', authCheck.isAuthenticated, authController.chooseDashboard)
 app.get('/noaccess', authController.noAccess);
+app.get('/alladmins', authCheck.isAuthenticated, authCheck.isAdmin, authController.allAdmins);
 
 // user
 app.get('/', UserTicketController.homepage);

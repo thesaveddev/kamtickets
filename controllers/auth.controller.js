@@ -20,6 +20,17 @@ exports.createAdminForm = async (req, res) => {
         });
     }
     
+// show all admins
+exports.allAdmins = async (req, res) => {
+    let admins = await User.find();
+
+    return res.render('alladmins', {
+        user: req.user,
+        admins
+    })
+}
+
+    
 // create admin user
 exports.createUser = async (req, res) => { 
     const password = await bcrypt.hash(req.body.password, 10);
