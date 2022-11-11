@@ -43,7 +43,7 @@ exports.createTicket = async (req, res) => {
         subject: req.body.subject,
         category: req.body.category,
         description: req.body.description,
-        ticket_number: `00${tickets.length + 1}`,
+        ticket_number: `0${tickets.length + 1}`,
         attachment,
         date_created: moment(Date.now()).format("LLLL")
     }
