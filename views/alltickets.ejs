@@ -49,8 +49,16 @@
           <td><%= ticket.sbu.toUpperCase()%> </td>
           <td><%= ticket.subject%> </td>
           <td><%= ticket.date_created%> </td>
-          <td><%= ticket.status%> </td>
-          <td><%= ticket.state%> </td>
+          <td > <%= ticket.status%> </td>
+          <% if (ticket.state == "UNASSIGNED") { %>
+          <td class="bg-danger text-white"><%= ticket.state%> </td>
+            <% } %>
+            <% if (ticket.state == "ASSIGNED") { %>
+          <td class="bg-blue text-white"><%= ticket.state%> </td>
+            <% } %>
+            <% if (ticket.state == "ASSIGNED" && ticket.status == "CLOSED") { %>
+          <td class="bg-success text-white"><%= ticket.status%> </td>
+            <% } %>
           <td><a href="/ticket/<%=ticket._id%>" class="btn btn-outline-primary">View Ticket</a></td>
         </tr>
     <% }) %>
