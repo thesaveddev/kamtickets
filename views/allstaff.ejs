@@ -34,7 +34,7 @@
           <td><%= staff.email%> </td>
           <td><%= staff.phone%> </td>
           <td><a href="/staff/<%=staff.id%>/edit" class="btn btn-outline-primary">Edit</a></td>
-          <td><a href="/staff/<%=staff.id%>/delete" class="btn btn-outline-danger" onclick="confirm('Are you sure you want to delete user?')">Delete</button></td>
+          <td><a href="/staff/<%=staff.id%>/delete" class="btn btn-outline-danger" onclick="if (confirm('Are you sure you want to delete user?')) commentDelete(1); return false">Delete</button></td>
         </tr>
     <% }) %>
   </tbody>
