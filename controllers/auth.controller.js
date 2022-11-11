@@ -87,8 +87,6 @@ exports.createUser = async (req, res) => {
 exports.signIn = async (req, res) => {
     const user = await User.findOne({ email: req.body.username });
     const staff = await Staff.findOne({ email: req.body.username });
-        console.log('user', user)
-        console.log('staff', staff)
     try {
         
         // if there's no user and no staff
