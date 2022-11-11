@@ -52,6 +52,9 @@ img:hover {
 .bg-primary {
     background-color: #9a7b4f !important;
 }
+.bg-blue {
+    background-color: rgb(5, 148, 214);
+}
 .card {
     margin: auto;
 }
