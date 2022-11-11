@@ -23,6 +23,7 @@ exports.ticketform = async (req, res) => {
 
 // create ticket
 exports.createTicket = async (req, res) => {
+    let tickets = await Ticket.find();
     // define ticket object
     let attachment;
     if (req.files.length <= 0) {
@@ -42,6 +43,7 @@ exports.createTicket = async (req, res) => {
         subject: req.body.subject,
         category: req.body.category,
         description: req.body.description,
+        ticket_number: `00${tickets.length + 1}`,
         attachment,
         date_created: moment(Date.now()).format("LLLL")
     }

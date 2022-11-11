@@ -15,11 +15,9 @@ exports.sendMail = async (mailOptions) => {
 
   // send mail with defined transport object
   await transporter.sendMail(mailOptions ).then(info => {
-    console.log("mail sent", info)
+    console.log("mail sent")
   }).catch(err => {
-    console.log("mail not sent")
+    console.log("mail not sent");
     console.log(err)
   })
-
-  // console.log("Message sent: %s", info.messageId);
 }

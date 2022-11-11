@@ -35,6 +35,9 @@ date_created: {
 date_closed: {
     type: String,
     },
+ticket_number: {
+    type: String
+    },
 attachment: [{
     type: String,
     }],

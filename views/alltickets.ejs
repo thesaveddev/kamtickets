@@ -31,6 +31,7 @@
            <table class="table table-striped">
   <thead>
     <tr>
+      <th scope="col">Ticket Number</th>
       <th scope="col">User</th>
       <th scope="col">SBU</th>
       <th scope="col">Subject</th>
@@ -43,6 +44,7 @@
   <tbody>
       <% tickets.reverse().forEach(ticket => { %>
         <tr>
+          <td><%= ticket.ticket_number%> </td>
           <td><%= ticket.fullname%> </td>
           <td><%= ticket.sbu.toUpperCase()%> </td>
           <td><%= ticket.subject%> </td>
