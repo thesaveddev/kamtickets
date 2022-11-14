@@ -133,7 +133,6 @@ exports.signIn = async (req, res) => {
             message: 'Incorrect Username or Password!'
         })
             }
-            console.log(staff)
         
         let token = jwt.sign({
             id: staff._id,
@@ -163,7 +162,7 @@ exports.signIn = async (req, res) => {
         
         let token = jwt.sign({
             username: user.username,
-            id: user._id,
+            id: staff._id,
             email: user.email,
             fullname: staff.staffname,
             phone: user.phone,
@@ -173,9 +172,11 @@ exports.signIn = async (req, res) => {
 
         // set auth cookie
         res.cookie('token', token);
-        req.user = user
+        req.user = user;
         
-        res.redirect("/choosedashboard");
+        res.render("choosedashboard", {
+            user
+        });
     }
 } catch (err) {
         console.log(err)
@@ -187,7 +188,10 @@ exports.signIn = async (req, res) => {
 
 // show choose dashboard page
 exports.chooseDashboard = async (req, res) => {
-    return res.render('choosedashboard');
+    console.log(req.user)
+    return res.render('choosedashboard', {
+        user: req.user
+    });
 }
 
 // show access restriction page

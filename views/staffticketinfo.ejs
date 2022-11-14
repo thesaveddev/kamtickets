@@ -11,7 +11,7 @@
             <div>
                 <div class="">
                     <div class="card-header">
-                        <p><%=ticket.subject%> from <%=ticket.fullname%> - <%= ticket.status %> </p>
+                        <p> <b><%=ticket.subject.toUpperCase()%> FROM <%=ticket.fullname.toUpperCase()%> - <%= ticket.status %> </b></p>
                         <div>
                             <p>Date Created:</p> <%= ticket.date_created%>
                         </div>
@@ -32,17 +32,13 @@
                         <% } %>
                     </div>
                     <div class="card-body" align="center">
-                        <p>Staff Contact Details</p>
-                        <hr>
-                        <p>Staff Email: <%= ticket.email %></p>
-                        <p>Staff Phone: <%= ticket.phone %></p>
-                        <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
-                        <p>Staff Department: <%= ticket.department.toUpperCase() %></p>
-                        <hr>
-                        <p>Ticket Detail</p>
+                        <p><b>TICKET DETAILS</b></p>
                         <hr>
                         <p>Ticket Category: <%= ticket.category %></p>
-                        <p>Description Of Complaint: <%= ticket.description %></p>
+                        <div class="form-group">
+                            <p>Description Of Complaint </p>
+                            <textarea class="form-control" cols="68" rows="4"><%= ticket.description %></textarea>
+                        </div>
                         <p>Attachments:
                         <a target="_blank" href="/<%= ticket.attachment %>">
                         <img src="/<%= ticket.attachment %>" alt="attachment">
@@ -51,7 +47,6 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <% if(ticket.status != "CLOSED") { %>
                         <div class="card-header" align="center">Update Ticket</div>
                         <div class="form">
                             <form action="/staff/ticket/<%= ticket._id %>" method="post">
@@ -100,7 +95,6 @@
                         </div>
                         <% }) %>
                     </div>
-                        <% } %>
                     </div>
                     </div>
                 </div>
