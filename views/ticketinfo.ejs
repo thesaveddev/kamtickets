@@ -46,7 +46,7 @@
                         <p>Staff Email: <%= ticket.email %></p>
                         <p>Staff Phone: <%= ticket.phone %></p>
                         <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
-                        <p>Staff Department: <%= ticket.department %></p>
+                        <p>Staff Department: <%= ticket.department.toUpperCase() %></p>
                     </div>
                     <div class="card-body" align="center">
                         <hr>
@@ -54,7 +54,7 @@
                         <hr>
                         <p>Ticket Category: <%= ticket.category %></p>
                         <p>Description Of Complaint: <%= ticket.description %></p>
-                        <p>Attachment:
+                        <p>Attachment: <%= ticket.attachment %>
                             <img class="images" src="" alt="attachment">
                             <div class="space"></div>
                         </p>
@@ -81,14 +81,15 @@
                             <form action="/admin/comment" method="post">
                                 <input type="hidden" name="ticketid" value="<%=ticket._id%>">
                                 <div class="form-group">
-                                    <textarea name="comment" class="form-control" cols="68" rows="4" placeholder="Enter your comments here"></textarea>
+                                    <textarea name="comment" class="form-control" cols="68" rows="4" placeholder="Enter your comments here" required></textarea>
+                                    <input class="form-control" type="file" />
                                 </div>
                                 <div class="form-group m-4">
                                     <button type="submit" class="btn btn-outline-primary">Add Comment</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="comments m-2">
+                        <div class="comments m-2 bg-primary">
                             <h5>Comments</h5>
                             <% ticket.comments.reverse().forEach(comment => { %>
                         <div class="card p-3 m-2">

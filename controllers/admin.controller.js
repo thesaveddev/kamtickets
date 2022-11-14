@@ -179,11 +179,11 @@ exports.assignTicket = async (req, res) => {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
             to: staff.email, // list of receivers
             subject: "New Ticket Assigned", // Subject line
-            html: `<p>Dear ${staff.staffname}, A new ticket has been assigned to you, kindly provide a swift action on the issue Regards.
+        html: `<p>Dear ${staff.staffname}, A new ticket has been assigned to you, kindly provide a swift action on the issue Regards.
+            <br>
+            <br>
             <b> Ticket Details <b/>
-                <br>
                 <p> Title: ${ticket.subject} </p>
-                <br>
                 <p> Opened By: ${ticket.fullname} </p>
             </p>`
         }
@@ -405,25 +405,20 @@ exports.editStaffForm = async (req, res) => {
 // edit staff
 exports.editStaff = async (req, res) => {
     let update = req.body;
-    let staff = await Staff.findOne({ _id: req.body.id });
 
-    if (!staff) {
-        return res.redirect('/allstaff');
-    }
-
-    await Staff.updateOne({ _id: req.body.id }, update, async (err, update) => {
-    let allStaff = await Staff.find();
+     await Staff.updateOne({ _id: req.body.id }, update, async (err, update) => {
+    // let allStaff = await Staff.find();
         if (err) {
             return res.render('allStaff', {
                 message: "Staff details not updated.",
                 allStaff,
-        user: req.user
+                user: req.user
             })
         } else {
             return res.render('allStaff', {    
                 message: "Staff Details Updated",
-                allStaff,
-        user: req.user
+                allStaff: update,
+                user: req.user
             })
         }
     })

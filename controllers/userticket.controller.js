@@ -2,6 +2,8 @@ const moment = require('moment');
 const Mailer = require('../utils/mailer');
 // import dependencies
 const Ticket = require("../models/ticket");
+const Staff = require('../models/staff');
+
 
 
 
@@ -68,7 +70,7 @@ exports.createTicket = async (req, res) => {
         
         Mailer.sendMail(mail);
         return res.render("homepage", {
-            message: "Your issue has been submitted successfully. Please check on the status after some time.",
+            message: `Your issue has been submitted successfully. Your ticket number is ${newticket.ticket_number}. Please check on the status after some time.`,
             user: {}
         })
     }).catch(err => {
@@ -155,6 +157,8 @@ exports.userComment = async (req, res) => {
         })
     }
 
+    
+
     let comment = {
         user: ticket.fullname,
         date: moment(Date.now()).format("LLLL"),
@@ -164,7 +168,21 @@ exports.userComment = async (req, res) => {
    ticket.comments.push(comment);
     ticket.save();
 
-        return res.render('userticketinfo', {
+    // if ticket is assigned, send mail to assigned staff
+    if (ticket.state == "ASSIGNED") {
+        let staff = await Staff.findOne({ _id: ticket.staffid });
+
+        let mailOptions = {
+                from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+                to: staff.email, // list of receivers
+                subject: "New Ticket Comment", // Subject line
+                html: `<p>Dear ${staff.staffname.split(' ')[0]}, the user has made a new comment on the ticket, please attend to it as soon as possible.</p>`
+            }
+                        
+            Mailer.sendMail(mailOptions);
+    }
+
+    return res.render('userticketinfo', {
         message: 'Ticket has been updated',
         ticket,
         user: {}

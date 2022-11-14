@@ -88,7 +88,6 @@ exports.signIn = async (req, res) => {
     const user = await User.findOne({ email: req.body.username });
     const staff = await Staff.findOne({ email: req.body.username });
     try {
-        
         // if there's no user and no staff
         if (!user && !staff) {
         return res.status(404).render('index', {

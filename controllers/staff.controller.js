@@ -139,8 +139,8 @@ exports.viewStaffTicket = async (req, res) => {
 // update ticket
 exports.updateTicket = async (req, res) => {
     try {
-    let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
-
+        let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
+        
     if (!ticket) {
         return res.render('allstaffticket', {
             tickets,
@@ -148,31 +148,67 @@ exports.updateTicket = async (req, res) => {
             message: "The specified ticket does not exist.",
         user: req.user
         })
-    }
+        }
+        
 
-    let closed, closed_by;
-
+        // close ticket
     if (req.body.status == "CLOSED") {
+        let closed, closed_by;
+
         closed = moment(Date.now()).format("LLLL"),
         closed_by = req.user.fullname
-    }
-
+        
         ticket.status = req.body.status;
         ticket.date_closed = closed;
         ticket.closed_by = closed_by;
         ticket.save();
-
+        
         // send mail to user
         let mailOptions = {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
             to: ticket.email, // list of receivers
             subject: "Ticket Closed", // Subject line
-            html: `<p>Dear ${ticket.fullname}, Your ticket ${ticket.subject} has been closed by ${ticket.closed_by}.
+            html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} has been closed by ${ticket.closed_by}.
             </p>`
         }
-                    
+        
         Mailer.sendMail(mailOptions);
+    }
 
+        // mark in progress
+    if (req.body.status == "IN PROGRESS") {
+        ticket.status = req.body.status;
+        ticket.save();
+        
+        // send mail to user
+        let mailOptions = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "Ticket In Progress", // Subject line
+            html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} in being processed. kindly do a follow up on the portal.
+            </p>`
+        }
+        
+        // Mailer.sendMail(mailOptions);
+        }
+        
+        // reopen ticket
+        if (req.body.status == "OPEN") {
+        ticket.status = req.body.status;
+        ticket.save();
+        
+        // send mail to user
+        let mailOptions = {
+            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+            to: ticket.email, // list of receivers
+            subject: "Ticket Re-Opened", // Subject line
+            html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} has been re-opened. kindly do a follow up on the portal.
+            </p>`
+        }
+        
+        // Mailer.sendMail(mailOptions);
+        }
+        
         let tickets = await Ticket.find({ staffid: req.user.id });
 
         return res.render('allstafftickets', {
@@ -212,7 +248,7 @@ exports.staffComment = async (req, res) => {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
             to: ticket.email, // list of receivers
             subject: "New Comment", // Subject line
-            html: `<p>Dear ${ticket.fullname}, A New Comment Has Been Made On Your ticket, ${ticket.subject}, kindly track yur ticket on the portal.</p>`
+            html: `<p>Dear ${ticket.fullname.split(' ')[0]}, A New Comment Has Been Made On Your ticket, '${ticket.subject}', kindly track your ticket on the portal.</p>`
         }
                     
         Mailer.sendMail(userMail);
