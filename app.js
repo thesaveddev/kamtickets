@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/uploads'));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use('/uploads', express.static(path.join(__dirname + '/upload')));
 

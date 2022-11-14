@@ -188,3 +188,8 @@ exports.userComment = async (req, res) => {
         user: {}
         })
 }
+
+
+exports.getFile = async (req, res) => {
+    let ticket = await Ticket.findOne({ _id: req.params.ticketid });
+}

@@ -83,6 +83,7 @@ app.post('/stafffindtickets', authCheck.isAuthenticated, StaffTicketController.s
 app.get('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.viewStaffTicket);
 app.post('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.updateTicket);
 app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staffComment);
+app.get('/:ticketid/attachment', authCheck.isAuthenticated, UserTicketController.getFile);
 
 
 //report module

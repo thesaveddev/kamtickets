@@ -39,11 +39,8 @@
                             <p>Description Of Complaint </p>
                             <textarea class="form-control" cols="68" rows="4"><%= ticket.description %></textarea>
                         </div>
-                        <p>Attachments:
-                        <a>
-                        <img src="/<%= ticket.attachment %>" alt="attachment">
-                        <div class="space"></div>
-                        </a>
+                        <p>Attachments: <a href=<%=`/${ticket._id}/attachment` %>>View Attachment</a>
+                            <img src="<%=`ticket.image` %>" alt="">
                         </p>
                     </div>
                     <div class="card-footer">
