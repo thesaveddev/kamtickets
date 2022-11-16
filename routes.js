@@ -34,7 +34,7 @@ app.post('/login', authController.signIn);
 app.get('/register', authCheck.isAuthenticated, authCheck.isAdmin, authController.createAdminForm);
 app.post('/register', authCheck.isAuthenticated, authCheck.isAdmin, authController.createUser);
 app.get('/logout', authController.logout);
-app.get('/choosedashboard', authController.chooseDashboard)
+app.get('/choosedashboard', authCheck.isAuthenticated, authController.chooseDashboard)
 app.get('/noaccess', authController.noAccess);
 app.get('/alladmins', authCheck.isAuthenticated, authCheck.isAdmin, authController.allAdmins);
 

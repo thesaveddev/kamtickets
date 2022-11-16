@@ -192,7 +192,7 @@ exports.assignTicket = async (req, res) => {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
             to: ticket.email, // list of receivers
             subject: "Ticket Assigned", // Subject line
-            html: `<p>Dear ${ticket.fullname}, Your ticket, "${ticket.subject}", has been assigned to ${ticket.staffname}, you will be attended to shortly.</p>`
+            html: `<p>Dear ${ticket.fullname}, Your ticket, <b>"${ticket.subject.toUpperCase()}"</b>, has been assigned to ${ticket.staffname}, you will be attended to shortly.</p>`
         }
                     
         Mailer.sendMail(staffMail);

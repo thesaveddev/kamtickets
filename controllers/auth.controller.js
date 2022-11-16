@@ -89,7 +89,6 @@ exports.signIn = async (req, res) => {
     const staff = await Staff.findOne({ email: req.body.username });
 
     try {
-        
         // if there's no user and no staff
         if (!user && !staff) {
         return res.status(404).render('index', {
@@ -127,7 +126,7 @@ exports.signIn = async (req, res) => {
     // if there's a staff who's not an admin
         if (staff && !user) {
             const status = await bcrypt.compare(req.body.password, staff.password);
-            
+            console.log(status)
             if (!status) {
         return res.status(501).render('index', {
             message: 'Incorrect Username or Password!'
@@ -162,7 +161,7 @@ exports.signIn = async (req, res) => {
         
         let token = jwt.sign({
             username: user.username,
-            id: staff._id,
+            id: user._id,
             email: user.email,
             fullname: staff.staffname,
             phone: user.phone,
@@ -172,11 +171,9 @@ exports.signIn = async (req, res) => {
 
         // set auth cookie
         res.cookie('token', token);
-        req.user = user;
+        req.user = user
         
-        res.render("choosedashboard", {
-            user
-        });
+        res.redirect("/choosedashboard");
     }
 } catch (err) {
         console.log(err)
