@@ -7,7 +7,8 @@ const Mailer = require('../utils/mailer');
 
 // get all staff tickets
 exports.allStaffTickets = async (req, res) => {
-    let tickets = await Ticket.find({ staffid: req.user.id });
+    
+    let tickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
         return res.render('allstafftickets', {
@@ -28,7 +29,7 @@ exports.allStaffTickets = async (req, res) => {
 
 // get all staff open tickets
 exports.staffOpenTickets = async (req, res) => {
-    let tickets = await Ticket.find({ staffid: req.user.id, status: "OPEN" });
+    let tickets = await Ticket.find({ staffemail: req.user.email, status: "OPEN" });
 
     if (!tickets.length > 0) {
         return res.render('allstafftickets', {
@@ -49,7 +50,7 @@ exports.staffOpenTickets = async (req, res) => {
 
 // get all staff in progress tickets
 exports.staffInProgressTickets = async (req, res) => {
-let tickets = await Ticket.find({ staffid: req.user.id, status: "IN PROGRESS" });
+let tickets = await Ticket.find({ staffemail: req.user.email, status: "IN PROGRESS" });
 
     if (!tickets.length > 0) {
         return res.render('allstafftickets', {
@@ -70,7 +71,7 @@ let tickets = await Ticket.find({ staffid: req.user.id, status: "IN PROGRESS" })
 
 // get all staff closed tickets
 exports.staffClosedTickets = async (req, res) => {
-let tickets = await Ticket.find({ staffid: req.user.id, status: "CLOSED" });
+let tickets = await Ticket.find({ staffemail: req.user.email, status: "CLOSED" });
 
     if (!tickets.length > 0) {
         return res.render('allstafftickets', {
@@ -94,8 +95,8 @@ exports.staffFindTickets = async (req, res) => {
     let tickets = await Ticket.find()
         .where('email')
         .equals(req.body.email)
-        .where('staffid')
-        .equals(req.user.id)
+        .where('staffemail')
+        .equals(req.user.email)
 
     if (tickets.length <= 0) {
         return res.render("allstafftickets", {
@@ -115,7 +116,7 @@ exports.staffFindTickets = async (req, res) => {
 
 // view ticket
 exports.viewStaffTicket = async (req, res) => {
-    let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
+    let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffemail: req.user.email });
     
     if (!ticket) {
             let tickets = await Ticket.find();
@@ -139,7 +140,7 @@ exports.viewStaffTicket = async (req, res) => {
 // update ticket
 exports.updateTicket = async (req, res) => {
     try {
-        let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffid: req.user.id });
+        let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffemail: req.user.email });
         
     if (!ticket) {
         return res.render('allstaffticket', {

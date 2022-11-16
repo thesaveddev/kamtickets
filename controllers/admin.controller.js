@@ -171,7 +171,7 @@ exports.assignTicket = async (req, res) => {
     }
 
         ticket.state = "ASSIGNED";
-        ticket.staffid = staff._id;
+        ticket.staffemail = staff.email;
         ticket.staffname = staff.staffname;
         ticket.save();
 

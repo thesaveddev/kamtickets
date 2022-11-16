@@ -66,7 +66,7 @@ comments: [{
         type: String
     }
 }],
-staffid: {
+staffemail: {
     type: String
     },
 staffname: {

@@ -99,7 +99,6 @@ exports.signIn = async (req, res) => {
 
     // if there's an admin user who's not a staff
         if (user && !staff) {
-        console.log('Admin alone logging in')
     const status = await bcrypt.compare(req.body.password, user.password);
 
         if (!status) {
@@ -127,7 +126,6 @@ exports.signIn = async (req, res) => {
 
     // if there's a staff who's not an admin
         if (staff && !user) {
-            console.log("staff logging in");
             const status = await bcrypt.compare(req.body.password, staff.password);
             
             if (!status) {
@@ -154,9 +152,6 @@ exports.signIn = async (req, res) => {
 
     // if there's a staff who's also an admin
     if (user && staff) {
-        console.log('Admin logging in')
-        console.log("User", user)
-        console.log("Staff", staff)
         const status = await bcrypt.compare(req.body.password, user.password);
 
         if (!status) {
