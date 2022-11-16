@@ -88,8 +88,6 @@ exports.signIn = async (req, res) => {
     const user = await User.findOne({ email: req.body.username });
     const staff = await Staff.findOne({ email: req.body.username });
 
-    console.log('user', user)
-    console.log('staff', staff)
     try {
         // if there's no user and no staff
         if (!user && !staff) {
@@ -99,7 +97,8 @@ exports.signIn = async (req, res) => {
     }
 
     // if there's an admin user who's not a staff
-    if (user) {
+        if (user && !staff) {
+        console.log('Admin alone logging in')
     const status = await bcrypt.compare(req.body.password, user.password);
 
         if (!status) {
@@ -126,8 +125,8 @@ exports.signIn = async (req, res) => {
     }
 
     // if there's a staff who's not an admin
-        if (staff) {
-            console.log("staff found")
+        if (staff && !user) {
+            console.log("staff logging in");
             const status = await bcrypt.compare(req.body.password, staff.password);
             console.log(status)
             if (!status) {
@@ -154,6 +153,9 @@ exports.signIn = async (req, res) => {
 
     // if there's a staff who's also an admin
     if (user && staff) {
+        console.log('Admin logging in')
+        console.log("User", user)
+        console.log("Staff", staff)
         const status = await bcrypt.compare(req.body.password, user.password);
 
         if (!status) {
