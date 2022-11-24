@@ -3,7 +3,6 @@
         <div class="m-3 centralize">
           <div class="m-4">
             <a href="/addstaff" class="btn btn-sm btn-outline-primary">Add New Staff</a>
-            <a href="/register" class="btn btn-sm btn-outline-primary">Add New Admin</a>
             <a href="/alladmins" class="btn btn-sm btn-outline-primary">All Admins</a>
           </div>
           <div class="mt-2"></div>
@@ -20,6 +19,7 @@
       <th scope="col">Staff Name</th>
       <th scope="col">SBU</th>
       <th scope="col">Designation</th>
+      <th scope="col">Role</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
       <th scope="col">Action</th>
@@ -31,10 +31,12 @@
           <td><%= staff.staffname%> </td>
           <td><%= staff.sbu.toUpperCase()%> </td>
           <td><%= staff.designation%> </td>
+          <td><%= staff.role%> </td>
           <td><%= staff.email%> </td>
           <td><%= staff.phone%> </td>
           <td><a href="/staff/<%=staff.id%>/edit" class="btn btn-outline-primary">Edit</a></td>
           <td><a href="/staff/<%=staff.id%>/delete" class="btn btn-outline-danger" onclick="if (confirm('Are you sure you want to delete user?')) commentDelete(1); return false">Delete</button></td>
+          <td><a href="/staff/<%=staff.id%>/resetpassword" class="btn btn-outline-primary">Reset Password</a></td>
         </tr>
     <% }) %>
   </tbody>

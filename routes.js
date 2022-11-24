@@ -60,6 +60,8 @@ app.get('/staff/:id/delete', authCheck.isAuthenticated, authCheck.isAdmin, Admin
 app.get('/staff/:id/edit', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.editStaffForm);
 app.post('/editstaff', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.editStaff);
 app.get('/staff/:id', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.findStaff);
+app.get('/staff/:id/resetpassword', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.resetPassword);
+app.post('/staff/resetpassword', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.resetStaffPassword);
 
 // ticket management
 app.get('/tickets', authCheck.isAuthenticated, AdminTicketController.allTickets);

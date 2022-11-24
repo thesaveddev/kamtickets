@@ -329,6 +329,7 @@ exports.createStaff = async (req, res) => {
         designation: req.body.designation,
         email: req.body.email,
         phone: req.body.phone,
+        role: req.body.role,
         password
     }
 
@@ -344,6 +345,8 @@ exports.createStaff = async (req, res) => {
                 Username: ${staff.email} <span> 
                 <br>
                 Password: ${req.body.password}  </span>
+                <br>
+                Role: ${req.body.role}
             </p>`
         }
                     
@@ -355,7 +358,7 @@ exports.createStaff = async (req, res) => {
         })
     }).catch(err => {
         console.log(err);
-        return res.render("creatstaff", {
+        return res.render("createstaff", {
             message: "Staff could not be created, please try again.",
         user: req.user
         })
@@ -444,4 +447,41 @@ exports.findStaff = async (req, res) => {
         staff,
         user: req.user
     })
+}
+
+// reset password page
+exports.resetPassword = async (req, res) => {
+    let staff = await Staff.findOne({ _id: req.params.id });
+    
+    return res.render('passwordreset', {
+        user: req.user,
+        message: '',
+        staff
+    })
+}
+
+// reset password
+exports.resetStaffPassword = async (req, res) => {
+    let newpassword = await bcrypt.hash(req.body.newpassword, 10);
+    
+    let update = {
+        password: newpassword
+    }
+    Staff.findOneAndUpdate({ _id: req.body.staffid }, update, async (err, updatedStaff) => {
+        if (err) {
+            return res.render('passwordreset', {
+                message: "Password could not be updated",
+                user: req.user
+            })
+        } else {
+        let staff = await Staff.findOne({ _id: req.body.staffid });
+            
+            return res.render('passwordreset', {    
+                message: "Password has been updated successfully.",
+                user: req.user,
+                staff
+            })
+        }
+    })
+    
 }

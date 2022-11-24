@@ -11,7 +11,7 @@ exports.loginpage = async (req, res) => {
         });
     }
     
-// show login page
+// create admin form
 exports.createAdminForm = async (req, res) => {
     
     return res.status(200).render('createadmin', {
@@ -85,48 +85,19 @@ exports.createUser = async (req, res) => {
 
 // sign user in
 exports.signIn = async (req, res) => {
-    const user = await User.findOne({ email: req.body.username });
     const staff = await Staff.findOne({ email: req.body.username });
 
     try {
-        // if there's no user and no staff
-        if (!user && !staff) {
+        // if there's no staff
+        if (!staff) {
         return res.status(404).render('index', {
             message: 'Incorrect Username or Password!'
         });
     }
 
-    // if there's an admin user who's not a staff
-        if (user && !staff) {
-    const status = await bcrypt.compare(req.body.password, user.password);
-
-        if (!status) {
-        return res.status(501).render('index', {
-            message: 'Incorrect Username or Password!'
-        })
-        }
-        
-        let token = jwt.sign({
-            username: user.username,
-            id: user._id,
-            email: user.email,
-            fullname: user.fullname,
-            phone: user.phone,
-            sbu: user.sbu,
-            role: user.role,
-        }, 'dontguessit');
-
-        // set auth cookie
-        res.cookie('token', token);
-        req.user = user
-        
-        res.redirect("/admin/dashboard");
-    }
-
-    // if there's a staff who's not an admin
-        if (staff && !user) {
+    // if there's a staff 
+        if (staff.role == "STAFF") {
             const status = await bcrypt.compare(req.body.password, staff.password);
-            console.log(status)
             if (!status) {
         return res.status(501).render('index', {
             message: 'Incorrect Username or Password!'
@@ -144,14 +115,14 @@ exports.signIn = async (req, res) => {
 
         // set auth cookie
         res.cookie('token', token);
-        req.user = user
+        req.user = staff
         
         res.redirect("/staffdashboard");
     }
 
     // if there's a staff who's also an admin
-    if (user && staff) {
-        const status = await bcrypt.compare(req.body.password, user.password);
+    if (staff.role == "ADMIN") {
+        const status = await bcrypt.compare(req.body.password, staff.password);
 
         if (!status) {
         return res.status(501).render('index', {
@@ -160,21 +131,21 @@ exports.signIn = async (req, res) => {
         }
         
         let token = jwt.sign({
-            username: user.username,
-            id: user._id,
-            email: user.email,
+            username: staff.username,
+            id: staff._id,
+            email: staff.email,
             fullname: staff.staffname,
-            phone: user.phone,
-            sbu: user.sbu,
-            role: user.role,
+            phone: staff.phone,
+            sbu: staff.sbu,
+            role: staff.role,
         }, 'dontguessit');
 
         // set auth cookie
         res.cookie('token', token);
-        req.user = user
+        req.user = staff
         
         res.redirect("/choosedashboard");
-    }
+        }
 } catch (err) {
         console.log(err)
         return res.status(501).render('index', {
