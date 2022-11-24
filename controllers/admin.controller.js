@@ -406,8 +406,8 @@ exports.editStaffForm = async (req, res) => {
 exports.editStaff = async (req, res) => {
     let update = req.body;
 
-     await Staff.updateOne({ _id: req.body.id }, update, async (err, update) => {
-    // let allStaff = await Staff.find();
+    Staff.updateOne({ _id: req.body.id }, update, async (err, update) => {
+        let allStaff = await Staff.find();
         if (err) {
             return res.render('allStaff', {
                 message: "Staff details not updated.",
@@ -417,7 +417,7 @@ exports.editStaff = async (req, res) => {
         } else {
             return res.render('allStaff', {    
                 message: "Staff Details Updated",
-                allStaff: update,
+                allStaff,
                 user: req.user
             })
         }

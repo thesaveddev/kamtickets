@@ -1,3 +1,4 @@
+const ticket = require('../models/ticket');
 const Tickets = require('../models/ticket');
 
 
@@ -8,7 +9,7 @@ exports.reportDashboard = async (req, res) => {
     const closedTickets = await Tickets.find({status: "CLOSED"});
     const assignedTickets = await Tickets.find({state: "ASSIGNED"});
     const unAssignedTickets = await Tickets.find({state: "UNASSIGNED"});
-    const inProgress = await Tickets.find({state: "IN PROGRESS"});
+    const inProgress = await Tickets.find({status: "IN PROGRESS"});
 
     return res.render('reportdashboard', {
         allTickets: tickets.length,
@@ -23,21 +24,42 @@ exports.reportDashboard = async (req, res) => {
 
 // get specific staff ticket
 exports.staffTickets = async (req, res) => {
-    
+    let tickets = await Tickets.find({ staffemail: req.body.email });
+
+    return res.render('report', {
+        reportType: ticket.staffname,
+        tickets
+    })
 }
 
-// all open tickets
-exports.openTickets = async (req, res) => {
-    
+
+// get tickets by category
+exports.ticketscategory = async (req, res) => {
+    let tickets = await Tickets.find({ category: req.body.category });
+
+    return res.render('report', {
+        reportType: 'Reports By Category',
+        tickets
+    })
 }
 
+// get tickets by sbu
+exports.ticketsbu = async (req, res) => {
+    let tickets = await Tickets.find({ sbu: req.body.sbu });
 
-// all tickets in progress
-exports.ticketsInProgress = async (req, res) => {
-    
+    return res.render('report', {
+        reportType: 'Reports By SBU',
+        tickets
+    })
 }
 
-// all closed tickets
-exports.closedTickets = async (req, res) => {
-    
+// get tickets by department
+exports.ticketdepartment = async (req, res) => {
+    let tickets = await Tickets.find({ department: req.body.department });
+
+    return res.render('report', {
+        reportType: 'Reports By Department',
+        tickets
+    })
 }
+

@@ -88,6 +88,6 @@ app.get('/:ticketid/attachment', authCheck.isAuthenticated, UserTicketController
 
 //report module
 app.get('/reports', authCheck.isAuthenticated, ReportController.reportDashboard);
-
+app.post('/stafftickets', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.staffTickets);
 
 module.exports = app
