@@ -297,7 +297,7 @@ exports.assignTicket = async (req, res) => {
     
     let tickets = await Ticket.find();
         
-        return res.render('alltickets', {
+        return res.redirect ('/tickets', 200, {
         message: 'Ticket has been updated',
         tickets,
         pagetitle: 'All Tickets',

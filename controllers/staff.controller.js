@@ -190,7 +190,7 @@ exports.updateTicket = async (req, res) => {
             </p>`
         }
         
-        // Mailer.sendMail(mailOptions);
+        Mailer.sendMail(mailOptions);
         }
         
         // reopen ticket
@@ -207,10 +207,10 @@ exports.updateTicket = async (req, res) => {
             </p>`
         }
         
-        // Mailer.sendMail(mailOptions);
+        Mailer.sendMail(mailOptions);
         }
         
-        let tickets = await Ticket.find({ staffid: req.user.id });
+        let tickets = await Ticket.find({ staffemail: req.user.email });
 
         return res.render('allstafftickets', {
         message: 'Ticket has been updated',
@@ -220,7 +220,7 @@ exports.updateTicket = async (req, res) => {
     })
     } catch (error) {
         console.log(error)
-        let tickets = await Ticket.find({ staffid: req.user.id });
+        let tickets = await Ticket.find({ staffemail: req.user.email });
 
             return res.render('allstafftickets', {
                 message: 'An error occured. Ticket was not updated.',
