@@ -17,10 +17,22 @@ exports.admindashboard = async (req, res) => {
 // find all tickets
 exports.allTickets = async (req, res) => {
     let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
 
     return res.render('alltickets', {
         message: "",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "All Tickets",
         user: req.user
     })
@@ -28,11 +40,24 @@ exports.allTickets = async (req, res) => {
 
 // get unassigned tickets
 exports.unassignedTickets = async (req, res) => {
-    let tickets = await Ticket.find({ state: "UNASSIGNED" });
+    let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
+
     if (!tickets.length > 0) {
         return res.render('alltickets', {
             message: "There are no unassigned tickets.",
             tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
             pagetitle: "Unassigned Tickets",
         user: req.user
         })
@@ -40,6 +65,12 @@ exports.unassignedTickets = async (req, res) => {
     return res.render('alltickets', {
         message: "Unassigned Tickets",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "Unassigned Tickets",
         user: req.user
     })
@@ -47,12 +78,24 @@ exports.unassignedTickets = async (req, res) => {
 
 // get assigned tickets
 exports.assignedTickets = async (req, res) => {
-let tickets = await Ticket.find({ state: "ASSIGNED" });
+    let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
         return res.render('alltickets', {
             message: "There are no assigned tickets.",
             tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
             pagetitle: "Assigned Tickets",
         user: req.user
         })
@@ -60,6 +103,12 @@ let tickets = await Ticket.find({ state: "ASSIGNED" });
     return res.render('alltickets', {
         message: "Assigned Tickets",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "Assigned Tickets",
         user: req.user
     })
@@ -67,12 +116,24 @@ let tickets = await Ticket.find({ state: "ASSIGNED" });
 
 // get open tickets
 exports.openTickets = async (req, res) => {
-let tickets = await Ticket.find({ status: "OPEN" });
+    let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
         return res.render('alltickets', {
             message: "There are no open tickets.",
             tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
             pagetitle: "Open Tickets",
         user: req.user
         })
@@ -80,6 +141,12 @@ let tickets = await Ticket.find({ status: "OPEN" });
     return res.render('alltickets', {
         message: "",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "Open Tickets",
         user: req.user
     })
@@ -87,7 +154,13 @@ let tickets = await Ticket.find({ status: "OPEN" });
 
 // get closed tickets
 exports.closedTickets = async (req, res) => {
-let tickets = await Ticket.find({ status: "CLOSED" });
+    let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
         return res.render('alltickets', {
@@ -100,6 +173,12 @@ let tickets = await Ticket.find({ status: "CLOSED" });
     return res.render('alltickets', {
         message: "Closed Tickets",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "Closed Tickets",
         user: req.user
     })
@@ -107,12 +186,24 @@ let tickets = await Ticket.find({ status: "CLOSED" });
 
 // tickets in progress
 exports.ticketsInProgress = async (req, res) => {
-let tickets = await Ticket.find({ status: "IN PROGRESS" });
+    let tickets = await Ticket.find();
+    let unassignedTickets = await Ticket.find({ state: "UNASSIGNED" });
+    let assignedTickets = await Ticket.find({ state: "ASSIGNED" });
+    let openTickets = await Ticket.find({status: "OPEN"})
+    let closedTickets = await Ticket.find({status: "CLOSED"})
+    let inProgressTickets = await Ticket.find({ status: "IN PROGRESS" })
+    let userTickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
         return res.render('alltickets', {
             message: "There are no in progress tickets.",
             tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
             pagetitle: "In Progress Tickets",
         user: req.user
         })
@@ -120,6 +211,12 @@ let tickets = await Ticket.find({ status: "IN PROGRESS" });
     return res.render('alltickets', {
         message: "",
         tickets,
+        unassignedTickets,
+        assignedTickets,
+        openTickets,
+        closedTickets,
+        inProgressTickets,
+        userTickets,
         pagetitle: "In Progress Tickets",
         user: req.user
     })

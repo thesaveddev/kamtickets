@@ -9,6 +9,7 @@
            <table class="table table-striped">
   <thead>
     <tr>
+      <th scope="col">Ticket Number</th>
       <th scope="col">Subject</th>
       <th scope="col">Date Opened</th>
       <th scope="col">Status</th>
@@ -18,6 +19,7 @@
   <tbody>
       <% tickets.reverse().forEach(ticket => { %>
         <tr>
+          <td><%= ticket.ticket_number%> </td>
           <td><%= ticket.subject%> </td>
           <td><%= ticket.date_created%> </td>
           <td><%= ticket.status%> </td>

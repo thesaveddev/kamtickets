@@ -2,14 +2,9 @@
 
         <div class="centralize mt-4">
           <div class="m-2">
-            <a class="btn btn-sm btn-outline-primary" href="/tickets">All Tickets</a>
-            <a class="btn btn-sm btn-outline-primary" href="/tickets/assigned">Assigned Tickets</a>
-            <a class="btn btn-sm btn-outline-primary" href="/tickets/unassigned">Unassigned Tickets</a>
-            <a class="btn btn-sm btn-outline-primary" href="/tickets/open">Open Tickets</a>
-            <a class="btn btn-sm btn-outline-primary" href="/tickets/inprogress">In Progress Tickets</a>
-            <a class="btn btn-sm btn-outline-primary" href="/tickets/closed">Closed Tickets</a>
-            <a class="btn btn-sm btn-outline-secondary" href="/staffdashboard">My Tickets</a>
-            <div class="ml-5 float-right">
+            <h2 class="p-2"><%= pagetitle %></h2>
+          </div>
+          <div class="ml-5 float-right">
               <form method="post" action="/findtickets">
                 <div class="form-group">
                   <input type="email" class="form-control" name="email" placeholder="Search">
@@ -17,10 +12,15 @@
                 </div>
               </form>
             </div>
-          </div>
           <div class="m-2">
-            <h2 class="p-2"><%= pagetitle %></h2>
-            <span class="p-2"><%= tickets.length %> Ticket(s)</span>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets">All Tickets - 0<%= tickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/assigned">Assigned Tickets - 0<%= tickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/unassigned">Unassigned Tickets - 0<%= unassignedTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/open">Open Tickets - 0<%= openTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/inprogress">In Progress Tickets - 0<%= inProgressTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/closed">Closed Tickets - 0<%= closedTickets.length %></a>
+            <a class="btn btn-sm btn-outline-secondary" href="/staffdashboard">My Tickets - 0<%= userTickets.length %></a>
+            
           </div>
            <div>
         <% if(message != '') { %>
@@ -38,7 +38,6 @@
       <th scope="col">Subject</th>
       <th scope="col">Date Opened</th>
       <th scope="col">State</th>
-      <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
