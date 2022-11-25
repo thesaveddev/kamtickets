@@ -139,7 +139,7 @@ exports.userViewTicket = async (req, res) => {
         })
     }
 
-    return res.render('userticketinfo', {
+    return res.render('userticketdetail', {
         ticket,
         message: '',
             user: {}
@@ -161,7 +161,7 @@ exports.userComment = async (req, res) => {
 
     let comment = {
         user: ticket.fullname,
-        date: moment(Date.now()).format("LLLL"),
+        date: moment(Date.now()).format("ddd MMM D, yyyy hh:mm a"),
         comment: req.body.comment
     }
 
@@ -178,11 +178,10 @@ exports.userComment = async (req, res) => {
                 subject: "New Ticket Comment", // Subject line
                 html: `<p>Dear ${ticket.staffname.split(' ')[0]}, the user has made a new comment on the ticket, please attend to it as soon as possible.</p>`
             }
-                        
             Mailer.sendMail(mailOptions);
     }
 
-    return res.render('userticketinfo', {
+    return res.render('userticketdetail', {
         message: 'Ticket has been updated',
         ticket,
         user: {}
