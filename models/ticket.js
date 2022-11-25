@@ -31,6 +31,9 @@ category: {
 date_created: {
     type: String,
     required: true
+    },
+date_assigned: {
+    type: String,
 },
 date_closed: {
     type: String,
@@ -67,6 +70,9 @@ comments: [{
     }
 }],
 staffemail: {
+    type: String
+    },
+staffphone: {
     type: String
     },
 staffname: {

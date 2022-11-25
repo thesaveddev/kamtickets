@@ -47,9 +47,9 @@ exports.createTicket = async (req, res) => {
         description: req.body.description,
         ticket_number: `0${tickets.length + 1}`,
         attachment,
-        date_created: moment(Date.now()).format("LLLL")
+        date_created: moment(Date.now()).format("ddd MMM D, yyyy hh:mm a")
     }
-
+    
     // create a new ticket
     Ticket.create(ticket).then(newticket => {
         let adminMail;

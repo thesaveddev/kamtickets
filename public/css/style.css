@@ -1,12 +1,12 @@
 .wrapper {
     margin-top: 5%;
     display: flex;
+    align-items: center;
 }
 .centralize {
     margin: auto;
-    display: inline-block;
+    display: block;
     width: 95%;
-    align-items: center;
 }
 .top-space {
     margin-top: 15%;
@@ -26,14 +26,17 @@
 .form-wide {
     width: 30%;
 }
+.navbar {
+    padding: 0 !important;
+}
 .wide {
     width: 100% !important;
 }
 img {
   border: 1px solid #ddd; /* Gray border */
-  border-radius: 4px;  /* Rounded border */
-  padding: 5px; /* Some padding */
-  width: 60px; /* Set a small width */
+  border-radius: 2px;  /* Rounded border */
+  padding: 2px; /* Some padding */
+  width: 30px; /* Set a small width */
 }
 
 /* Add a hover effect (blue shadow) */
@@ -170,14 +173,64 @@ body {
 .card {
     border: none;
     box-shadow: 5px 6px 6px 2px #e9ecef;
-    border-radius: 20px;
+    border-radius: 10px;
 }
-
 .user-img{
-    width: 50px;
-    margin-top: 4px;
+    width: 25px;
+    margin-top: 2px;
 }
 .profile-img {
     width: 30px;
     margin-top: 4px;
+}
+.commenter {
+    font-size: xx-small;
+}
+.comment-date {
+    font-size: xx-small;
+    padding-right: 4px;
+}
+.comment {
+    font-size: small;
+    text-transform: capitalize;
+}
+/* ticket styling */
+.ticket-staff-detail {
+    margin: 0;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #dee3e9;
+}
+.ticket-issue-detail {
+    margin: 1px;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #d8d8da;
+}
+.ticket-action {
+    margin: 1px;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #dee3e9;
+}
+.ticket-font {
+    padding: 0;
+    font-size: 1em;
+    display: inline-block;
+}
+.ticket-number {
+    font-size: 1.5em;
+    color: rgba(43, 49, 138, 0.788);
+}
+.ticket-detail {
+    width: 95%;
+    border-radius: 5px;
+    overflow: scroll;
+}
+.col, .col-5, .col-7, .col-3 {
+    padding-left: 4px;
+}
+hr {
+    margin-bottom: 0;
+    margin-top: 0;
 }
