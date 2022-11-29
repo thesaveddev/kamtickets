@@ -171,3 +171,10 @@ exports.logout = async (req, res) => {
    res.clearCookie('token');
     return res.redirect('/');
 }
+
+// show manual
+exports.manual = (req, res) => {
+    return res.render('manual', {
+        user: {}
+    });
+}

@@ -28,6 +28,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// app manual
+app.get('/manual', authController.manual);
+
 // authentication
 app.get('/admin', authController.loginpage);
 app.post('/login', authController.signIn);

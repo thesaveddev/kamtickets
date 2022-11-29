@@ -315,3 +315,37 @@ hr {
     width: 100%;
   }
 } 
+
+
+/* this is the css of the kam-manual*/
+.body{
+   display: grid;
+   place-items: center;
+}
+.p1{ 
+    padding-left: 26%;
+    padding-right: 26%;
+}
+.p2{
+    padding-left: 26%;
+    padding-right: 26%;
+}
+.p3{
+    padding-left: 30%;
+    padding-right: 30%;
+}
+.step-2{
+    display:grid;
+    place-items: center;
+}
+.step-4{
+    display:grid;
+    place-items: center;
+}
+.step-9{
+    display:grid;
+    place-items: center;
+}
+.manual-image {
+    width: max-content;
+}

@@ -185,7 +185,7 @@ exports.userComment = async (req, res) => {
                 from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
                 to: "bashir.ganiyu@kamholding.net", // list of receivers
                 subject: "New Ticket Comment", // Subject line
-                html: `<p>Dear ${ticket.staffname.split(' ')[0]},<br> the user, ${ticket.fullname},  has made a new comment on the ticket ${ticket.ticket_number}, please attend to it as soon as possible.</p>`
+                html: `<p>Dear Admin, <br> the user, ${ticket.fullname},  has made a new comment on the ticket ${ticket.ticket_number}, please attend to it as soon as possible.</p>`
             }
             Mailer.sendMail(mailOptions);
     return res.render('userticketdetail', {
