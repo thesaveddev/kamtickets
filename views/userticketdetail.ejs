@@ -44,7 +44,11 @@
                     <p>Description:</p> <textarea class="ticket-detail" cols="35" rows="6"
                         disabled><%= ticket.description %></textarea>
                     <!-- Trigger the Modal -->
-                    <p> Attachment: </p><img id="myImg" src="<%= ticket.attachment %>" alt="Attachment" style="width:90%;max-width:90px">
+                    <% if(ticket.attachment !="" ) { %>
+                        <!-- Trigger the Modal -->
+                        <p> Attachment: </p><img id="myImg" src="<%= ticket.attachment %>" alt="Attachment"
+                            style="width:90%;max-width:90px">
+                        <% } %>
                 </div>
             </div>
             <div class="card col col-5 ticket-action">
