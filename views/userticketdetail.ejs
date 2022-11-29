@@ -43,8 +43,8 @@
                     </p>
                     <p>Description:</p> <textarea class="ticket-detail" cols="35" rows="6"
                         disabled><%= ticket.description %></textarea>
-                    <p>Attachments: <%= ticket.attachment %>
-                    </p>
+                    <!-- Trigger the Modal -->
+                    <p> Attachment: </p><img id="myImg" src="<%= ticket.attachment %>" alt="Attachment" style="width:90%;max-width:90px">
                 </div>
             </div>
             <div class="card col col-5 ticket-action">
@@ -56,11 +56,14 @@
                             </div>
                             <div class="card-body ticket-font">
                                 <% if(ticket.state=="UNASSIGNED" ){ %>
-                                    <p>Assigned: <span>Not Assigned</span></p>
+                                    <p><span>Not Yet Assigned</span></p>
                                     <% } %>
                                 <% if(ticket.state=="ASSIGNED" ){ %>
                                     <p>Assigned: <span>
                                     <%= ticket.staffname %>
+                                    </span></p>
+                                    <p>Status: <span>
+                                    <%= ticket.status %>
                                     </span></p>
                                     <p>Date Assigned: <span>
                                     <%= ticket.date_assigned %>

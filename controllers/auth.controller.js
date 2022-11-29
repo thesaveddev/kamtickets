@@ -86,7 +86,6 @@ exports.createUser = async (req, res) => {
 // sign user in
 exports.signIn = async (req, res) => {
     const staff = await Staff.findOne({ email: req.body.username });
-
     try {
         // if there's no staff
         if (!staff) {
@@ -119,7 +118,6 @@ exports.signIn = async (req, res) => {
         
         res.redirect("/staffdashboard");
     }
-
     // if there's a staff who's also an admin
     if (staff.role == "ADMIN") {
         const status = await bcrypt.compare(req.body.password, staff.password);

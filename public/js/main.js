@@ -1,23 +1,20 @@
+// Get the modal
+var modal = document.getElementById("myModal");
 
-let image = document.getElementsByClassName('images img');
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
 
-image.addEventListener('click')
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-alert(image)
-// images script
-$(".images img").click(function(){
-    $("#full-image").attr("src", $(this).attr("src"));
-    $('#image-viewer').show();
-  });
-  
-  $("#image-viewer .close").click(function(){
-    $('#image-viewer').hide();
-  });
-
-(function($){"use strict";var input=$('.validate-input .input100');$('.validate-form').on('submit',function(){var check=true;for(var i=0;i<input.length;i++){if(validate(input[i])==false){showValidate(input[i]);check=false;}}
-return check;});$('.validate-form .input100').each(function(){$(this).focus(function(){hideValidate(this);});});function validate(input){if($(input).attr('type')=='email'||$(input).attr('name')=='email'){if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/)==null){return false;}}
-else{if($(input).val().trim()==''){return false;}}}
-function showValidate(input){var thisAlert=$(input).parent();$(thisAlert).addClass('alert-validate');}
-function hideValidate(input){var thisAlert=$(input).parent();$(thisAlert).removeClass('alert-validate');}})(jQuery);
-
-
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+} 

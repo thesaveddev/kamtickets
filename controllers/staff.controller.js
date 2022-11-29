@@ -125,11 +125,11 @@ exports.viewStaffTicket = async (req, res) => {
             message: "Ticket not found",
             pagetitle: "All Tickets",
             tickets,
-        user: req.user
+            user: req.user
         })
     }
 
-    return res.render('staffticketinfo', {
+    return res.render('staffticketdetail', {
         ticket,
         message: "",
         user: req.user
@@ -140,8 +140,9 @@ exports.viewStaffTicket = async (req, res) => {
 // update ticket
 exports.updateTicket = async (req, res) => {
     try {
+        let staffTickets = await Ticket.find({ staffemail: req.user.email });
         let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffemail: req.user.email });
-        
+        console.log(req.body)
     if (!ticket) {
         return res.render('allstaffticket', {
             tickets,
@@ -155,6 +156,7 @@ exports.updateTicket = async (req, res) => {
         // close ticket
     if (req.body.status == "CLOSED") {
         let closed, closed_by;
+        console.log('closed')
 
         closed = moment(Date.now()).format("LLLL"),
         closed_by = req.user.fullname
@@ -172,31 +174,47 @@ exports.updateTicket = async (req, res) => {
             html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} has been closed by ${ticket.closed_by}.
             </p>`
         }
-        
+        // send email notification
         Mailer.sendMail(mailOptions);
+
+        return res.redirect ('/staffdashboard', 200, {
+        message: 'Ticket has been closed',
+        tickets: staffTickets,
+        pagetitle: 'All Tickets',
+        user: req.user
+    })
     }
 
         // mark in progress
-    if (req.body.status == "IN PROGRESS") {
-        ticket.status = req.body.status;
-        ticket.save();
+        if (req.body.status == "IN PROGRESS") {
+            ticket.status = req.body.status;
+            ticket.save();
+        console.log('progress')
         
-        // send mail to user
-        let mailOptions = {
-            from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
-            to: ticket.email, // list of receivers
-            subject: "Ticket In Progress", // Subject line
-            html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} in being processed. kindly do a follow up on the portal.
+            // send mail to user
+            let mailOptions = {
+                from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
+                to: ticket.email, // list of receivers
+                subject: "Ticket In Progress", // Subject line
+                html: `<p>Dear ${ticket.fullname.split(' ')[0]}, Your ticket ${ticket.subject} in being processed. kindly do a follow up on the portal.
             </p>`
-        }
+            }
         
-        Mailer.sendMail(mailOptions);
+            // send email notification
+            Mailer.sendMail(mailOptions);
+
+            return res.render('staffticketdetail', {
+                message: 'Ticket has been updated',
+                ticket,
+                user: req.user
+            })
         }
         
         // reopen ticket
         if (req.body.status == "OPEN") {
         ticket.status = req.body.status;
         ticket.save();
+        console.log('re open')
         
         // send mail to user
         let mailOptions = {
@@ -207,17 +225,15 @@ exports.updateTicket = async (req, res) => {
             </p>`
         }
         
-        Mailer.sendMail(mailOptions);
-        }
-        
-        let tickets = await Ticket.find({ staffemail: req.user.email });
-
-        return res.render('allstafftickets', {
-        message: 'Ticket has been updated',
-        tickets,
-        pagetitle: 'All Tickets',
-        user: req.user
-    })
+            // send email notification
+            Mailer.sendMail(mailOptions);
+            return res.render('allstafftickets', {
+            message: 'Ticket has been re-opened',
+            tickets: staffTickets,
+            pagetitle: 'All Tickets',
+            user: req.user
+            })   
+    }
     } catch (error) {
         console.log(error)
         let tickets = await Ticket.find({ staffemail: req.user.email });

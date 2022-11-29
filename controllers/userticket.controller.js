@@ -32,7 +32,7 @@ exports.createTicket = async (req, res) => {
         attachment = ""
     }
     else {
-        attachment = req.files[0].path.split("public\'")
+        attachment = req.files[0].path.split("public")[1]
     }
 
 

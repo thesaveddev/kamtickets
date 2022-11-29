@@ -1,6 +1,12 @@
 <%- include('partials/dashheader') %>
 
     <div class="centralize mt-4">
+        <% if(message !='' ) { %>
+            <div class="alert alert-success w-50" role="alert">
+                <%= message %>
+            </div>
+            <% } %>
+                </div>
         <div class="card">
             <div class="card-header">
                 <p>My Tickets</p>

@@ -45,6 +45,7 @@
                         disabled><%= ticket.description %></textarea>
                     <!-- Trigger the Modal -->
                     <p> Attachment: </p><img id="myImg" src="<%= ticket.attachment %>" alt="Attachment" style="width:90%;max-width:90px">
+                    </p>
                 </div>
             </div>
             <div class="card col col-5 ticket-action">
@@ -62,9 +63,6 @@
                                             <p>Assigned: <span>
                                                     <%= ticket.staffname %>
                                                 </span></p>
-                                            <p>Status: <span>
-                                                    <%= ticket.status %>
-                                                </span></p>
                                             <p>Date Assigned: <span>
                                                     <%= ticket.date_assigned %>
                                                 </span></p>
@@ -77,20 +75,18 @@
                                             <% } %>
                             </div>
                             <div class="form" align="center">
-                                <form action="/assignticket" method="post">
+                                <form action="/staff/ticket/<%= ticket._id %>" method="post">
                                     <input type="hidden" name="ticketid" value="<%=ticket._id%>">
                                     <div class="input-group mb-3">
-                                        <select class="form-control" name="staff" aria-placeholder="Staff" required>
-                                            <option value="" disabled selected>Assign To Staff
+                                        <select class="form-control" name="status" aria-placeholder="Staff" required>
+                                            <option value="" disabled selected>Change Ticket Status
                                             </option>
-                                            <% allstaff.forEach(staff=> { %>
-                                                <option value="<%=staff._id%>">
-                                                    <%=staff.staffname%>
-                                                </option>
-                                                <% }) %>
+                                            <option value="OPEN">OPEN</option>
+                                            <option value="IN PROGRESS">IN PROGRESS</option>
+                                            <option value="CLOSED">CLOSED</option>
                                         </select>
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-primary" type="submit">Assign Ticket</button>
+                                            <button class="btn btn-outline-primary" type="submit">Update Ticket</button>
                                         </div>
                                     </div>
                                 </form>
@@ -121,7 +117,7 @@
                             <div class="card-footer" align='center'>
                                 <% if(ticket.status !="CLOSED" ) { %>
                                     <div class="form" align="center">
-                                        <form action="/admin/comment" method="post">
+                                        <form action="/staff/comment" method="post">
                                             <input type="hidden" name="ticketid" value="<%=ticket._id%>">
                                             <div class="form-group">
                                                 <textarea name="comment" class="form-control" cols="68" rows="4"
