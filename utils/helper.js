@@ -5,6 +5,7 @@ exports.generateRandomCode = function () { return Math.floor(100000 + Math.rando
 exports.handleError = function (response, message) {
     return response.status(500).json({ error: message });
 };
+
 exports.generateUsername = function (name) {
     var randomDigit = Math.floor(100 + Math.random() * 900);
     if (name) {

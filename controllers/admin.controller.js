@@ -387,6 +387,7 @@ exports.findTickets = async (req, res) => {
 }
 
 exports.adminComment = async (req, res) => {
+    let allstaff = await Staff.find();
     let ticket = await Ticket.findOne({ _id: req.body.ticketid });
     
     let comment = {
@@ -407,9 +408,10 @@ exports.adminComment = async (req, res) => {
                     
         Mailer.sendMail(userMail);
 
-        return res.render('userticketinfo', {
+        return res.render('ticketdetail', {
         message: 'Ticket has been updated',
-        ticket,
+            ticket,
+        allstaff,
         user: req.user
         })
     }

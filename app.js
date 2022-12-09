@@ -9,9 +9,11 @@ const path = require('path')
 
 const mailer = require('./utils/mailer');
 
+// set view engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+// set publc paths
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public/uploads'));
 app.use(bodyParser.json({ limit: '50mb' }));

@@ -1,3 +1,4 @@
+const Staff = require('../models/staff');
 const ticket = require('../models/ticket');
 const Tickets = require('../models/ticket');
 
@@ -5,19 +6,16 @@ const Tickets = require('../models/ticket');
 // report dashboard
 exports.reportDashboard = async (req, res) => {
     const tickets = await Tickets.find();
-    const openTickets = await Tickets.find({status: "OPEN"});
-    const closedTickets = await Tickets.find({status: "CLOSED"});
-    const assignedTickets = await Tickets.find({state: "ASSIGNED"});
-    const unAssignedTickets = await Tickets.find({state: "UNASSIGNED"});
-    const inProgress = await Tickets.find({status: "IN PROGRESS"});
+    let staff = await Staff.find();
+    let SBU = ["hq", "jimba", "sagamu", "haulage", "dimkit-ganmo", "dimkit-kaduna", "kirikiri"]
+    let Departments = ["hr", "audit", "supply chain", "admin/operation", "account/finance", "electrical", "it"]
+
 
     return res.render('reportdashboard', {
-        allTickets: tickets.length,
-        openTickets: openTickets.length,
-        closedTickets: closedTickets.length,
-        assignedTickets: assignedTickets.length,
-        unassignedTickets: unAssignedTickets.length,
-        inProgresstickets: inProgress.length,
+        allTickets: tickets,
+        staff,
+        SBU,
+        Departments,
         user: req.user
     })
 }

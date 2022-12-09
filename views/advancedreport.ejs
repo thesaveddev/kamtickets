@@ -1,0 +1,114 @@
+<%- include('partials/dashheader') %>
+
+    <div class="centralize mt-4">
+        <div class="">
+            <div align="center">
+                <h3>Reports</h3>
+            </div>
+        </div>
+        <!-- <div class="admin-top-space"></div> -->
+        <div class="card-holder pl-5" align="center">
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>All Tickets</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= allTickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>Open Tickets</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= openTickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>Closed Tickets</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= closedTickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>Assigned Tickets</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= assignedTickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>Unassigned Tickets</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= unassignedTickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="report-card-header text-white">
+                    <p>Tickets In Progress</p>
+                </div>
+                <div class="report-card-body">
+                    <p>
+                        <%= inProgresstickets.length %> Tickets
+                    </p>
+                </div>
+            </div>
+            <div class="filter">
+                <form action="">
+                    <select class="form-control" name="sbu" aria-placeholder="sbu" required>
+                        <option value="" disabled selected>SBU
+                        </option>
+                        <option value="OPEN">OPEN</option>
+                    </select>
+                    <select class="form-control" name="category" aria-placeholder="category" required>
+                        <option value="" disabled selected>CATEGORY
+                        </option>
+                        <option value="OPEN">OPEN</option>
+                    </select>
+                    <select class="form-control" name="department" aria-placeholder="department" required>
+                        <option value="" disabled selected>DEPARTMENT
+                        </option>
+                        <option value="OPEN">OPEN</option>
+                    </select>
+                    <select class="form-control" name="status" aria-placeholder="status" required>
+                        <option value="" disabled selected>STATUS
+                        </option>
+                        <option value="OPEN">OPEN</option>
+                        <option value="IN PROGRESS">IN PROGRESS</option>
+                        <option value="CLOSED">CLOSED</option>
+                    </select>
+                    <select class="form-control" name="staff" aria-placeholder="staff" required>
+                        <option value="" disabled selected>STAFF
+                        </option>
+                    </select>
+                    <input type="date" name="date">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="submit">Filter</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+        <div class="report-category">
+            <table>
+
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <%- include('partials/dashFooter') %>

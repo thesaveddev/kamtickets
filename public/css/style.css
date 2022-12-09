@@ -81,9 +81,6 @@ img:hover {
     background-color: #9a7b4f;
     height: 20%;
 }
-.page-title {
-    float: right;
-}
 .admin-div-body {
     padding-top: 10%;
     font-family: 'Courier New', Courier, monospace;
@@ -315,8 +312,6 @@ hr {
     width: 100%;
   }
 } 
-
-
 /* this is the css of the kam-manual*/
 .body{
    display: grid;
@@ -348,4 +343,76 @@ hr {
 }
 .manual-image {
     width: max-content;
+}
+
+/* report page */
+/* .dash-card {
+    width: 30%;
+    height: 10%;
+    border: 4px solid #9a7b4f;
+    border-radius: 2%;
+    margin: 10px;
+    background-color: #e6e9ee;
+} */
+.report-card-header {
+    background-color: #9a7b4f;
+    height: 50%;
+}
+.report-card-header > p {
+    padding-left: 5px;
+    margin: 0;
+}
+.report-card-body {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: larger;
+}
+.report-card-body > p {
+    padding-left: 5px;
+    margin: 0;
+}
+.report-category {
+    border: 2px solid black;
+    min-height: 20%;
+}
+.page-title {
+    width: 100%;
+    display: flex;
+}
+.summary {
+    display: flex;
+}
+.sbu {
+    display: flex;
+    min-width: 49.5%;
+    float: left;
+}
+.department {
+    display: flex;
+    min-width: 49.5%;
+    float: right;
+}
+.report-title {
+    display: flex;
+    min-width: 50%;
+    float: left;
+    padding-left: 18%;
+}
+.staff-summary-title {
+    display: flex;
+    min-width: 100%;
+    float: left;
+    justify-content: center;
+}
+.staff-summary {
+    min-width: 100%;
+}
+.download {
+    display: flex;
+    float: right;
+    width: 15%;
+    height: 15%;
+}
+p.ticket {
+    display: inline-block;
 }

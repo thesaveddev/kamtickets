@@ -270,7 +270,7 @@ exports.staffComment = async (req, res) => {
                     
         Mailer.sendMail(userMail);
 
-        return res.render('userticketinfo', {
+        return res.render('staffticketdetail', {
         message: 'Ticket has been updated',
         ticket,
         user: req.user
