@@ -1,3 +1,11 @@
+import { jsPDF } from "https://cdn.skypack.dev/jspdf";
+import jspdfAutotable from 'https://cdn.skypack.dev/jspdf-autotable';
+
+const doc = new jsPDF();
+
+doc.text("Hello world!", 10, 10);
+doc.save("a4.pdf");
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -17,4 +25,4 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
-} 
+}

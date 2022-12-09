@@ -3,7 +3,9 @@
     <div class="centralize">
         <!-- report hint at a glance -->
         <div class="page-title">
-            <h4 class="text-center">REPORTS</h4>
+            <h4 class="mr-auto">REPORTS</h4>
+                <a class="btn btn-sm btn-outline-primary m-1" href="">Download Summary</a>
+                <a class="btn btn-sm btn-outline-primary m-1" href="/advancedreports">Advanced Filters</a>
         </div>
         <div class="summary">
             <div class="dash-card">
@@ -110,7 +112,7 @@
                             <%= allTickets.filter(ticket=> ticket.category == "Software/applications").length %> Tickets
                         </td>
                         <td>
-                            <%= allTickets.filter(ticket=> ticket.category == "Hardware Issue").length %> Tickets
+                            <%= allTickets.filter(ticket=> ticket.category == "Hardware").length %> Tickets
                         </td>
                     </tr>
                 </tbody>
