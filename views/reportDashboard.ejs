@@ -194,6 +194,7 @@
                     </thead>
                     <tbody>
                         <% staff.forEach(staff=> { %>
+                            <% if(staff.staffname != "Hakeem Akande" || "Busayo Kalejaiye ") { %>
                             <tr>
                                 <th scope="row">
                                     <%= staff.staffname %>
@@ -217,6 +218,7 @@
                                         Tickets
                                 </td>
                             </tr>
+                                <% } %>
                             <% }) %>
                     </tbody>
                 </table>
