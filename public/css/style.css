@@ -416,6 +416,29 @@ hr {
 p.ticket {
     display: inline-block;
 }
-.report-controls {
-    
+.menu {
+    left: 0;
+    top: 15%;
+    height: 90vh;
+    float: left;
+    width: 15%;
+    padding-right: 1%;
+}
+.generated-report {
+    border: 2px solid #9a7b4f;
+    border-radius: 10px;
+    float: right;
+    width: 85%;
+    height: 90vh;
+    padding: 5px;
+}
+.filter-title {
+    text-align: center;
+    background-color: #9a7b4f;
+    height: 10%;
+    padding-top: 5%;
+    margin-bottom: 5%;
+}
+.form-group {
+    margin: 2px;
 }

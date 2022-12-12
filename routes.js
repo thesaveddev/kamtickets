@@ -92,6 +92,7 @@ app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staf
 
 //report module
 app.get('/reports', authCheck.isAuthenticated, ReportController.reportDashboard);
-app.post('/stafftickets', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.staffTickets);
+app.get('/advancedreports', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.advancedReport);
+app.post('/advancedreport', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.ticketFilter);
 
 module.exports = app
