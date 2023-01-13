@@ -1,0 +1,71 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize mt-4">
+          <div class="m-2">
+            <h2 class="p-2"><%= pagetitle %></h2>
+          </div>
+          <div class="ml-5 float-right">
+              <form method="post" action="/findtickets">
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Search">
+                  <!-- <button class="btn btn-sm btn-outline-primary" type="submit">Find User Tickets</button> -->
+                </div>
+              </form>
+            </div>
+          <div class="m-2">
+            <a class="btn btn-sm btn-outline-primary" href="/tickets">All Tickets - <%= alltickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/assigned">Assigned Tickets - <%= assignedTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/unassigned">Unassigned Tickets - <%= unassignedTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/open">Open Tickets - <%= openTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/inprogress">In Progress Tickets - <%= inProgressTickets.length %></a>
+            <a class="btn btn-sm btn-outline-primary" href="/tickets/closed">Closed Tickets - <%= closedTickets.length %></a>
+            <a class="btn btn-sm btn-outline-secondary" href="/staffdashboard">My Tickets - <%= userTickets.length %></a>
+            
+          </div>
+           <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+           <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Ticket Number</th>
+      <th scope="col">User</th>
+      <th scope="col">SBU</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Date Opened</th>
+      <th scope="col">State</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% tickets.reverse().forEach(ticket => { %>
+        <tr>
+          <td><%= ticket.ticket_number%> </td>
+          <td><%= ticket.fullname%> </td>
+          <td><%= ticket.sbu.toUpperCase()%> </td>
+          <td><%= ticket.subject%> </td>
+          <td><%= ticket.date_created%> </td>
+          <% if (ticket.state == "UNASSIGNED") { %>
+          <td class="bg-danger text-white"><%= ticket.state %> - <%= ticket.status %> </td>
+            <% } %>
+            <% if (ticket.state == "ASSIGNED" && ticket.status == "OPEN") { %>
+          <td class="bg-blue text-white"><%= ticket.state %> - <%= ticket.status %> </td>
+            <% } %>
+            <% if (ticket.state == "ASSIGNED" && ticket.status == "CLOSED") { %>
+          <td class="bg-success text-white"><%= ticket.state %> - <%= ticket.status %> </td>
+            <% } %>
+            <% if (ticket.state == "ASSIGNED" && ticket.status == "IN PROGRESS") { %>
+          <td class="bg-secondary text-white"><%= ticket.state %> - <%= ticket.status %> </td>
+            <% } %>
+          <td><a href="/ticket/<%=ticket._id%>" class="btn btn-outline-primary">View Ticket</a></td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>
+        </div>
+
+<%- include('partials/dashFooter') %>
