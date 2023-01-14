@@ -1,0 +1,17 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize top-space w-50" align="center">
+            <div>
+                <% if(message != '') { %>
+                    <div class="alert alert-success w-50" role="alert">
+                <%= message %>
+                </div>
+                <% } %>
+                </div>
+            <a href="/createticket" class="btn btn-outline-primary">Raise a New Ticket</a>
+            <a href="/tracktickets" class="btn btn-outline-primary">Track My Tickets</a>
+            <br>
+            <a href="/manual">How To Use This Portal</a>
+        </div>
+
+<%- include('partials/dashFooter') %>

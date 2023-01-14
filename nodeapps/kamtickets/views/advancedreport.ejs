@@ -1,0 +1,121 @@
+<%- include('partials/dashheader') %>
+
+    <div class="centralize mt-2">
+        <div class="">
+            <div align="center">
+                <h3>Reports</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="menu fixed-top">
+                <div class="filter-title text-white">
+                    <p>Advanced Filters</p>
+                </div>
+                <form action="/advancedreport" method="POST">
+                    <div class="form-group">
+                        <select class="form-control" name="sbu" aria-placeholder="sbu">
+                            <option value="" disabled selected>SBU
+                            </option>
+                            <option value="hq">HQ</option>
+                            <option value="jimba">Jimba</option>
+                            <option value="sagamu">Shagamu</option>
+                            <option value="haulage">Haulage</option>
+                            <option value="dimkit-ganmo">Dimkit - Ganmo</option>
+                            <option value="dimkit-kaduna">Dimkit - Kaduna</option>
+                            <option value="kirikiri">Kiri Kiri</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="category" aria-placeholder="category">
+                            <option value="" disabled selected>Category</option>
+                            <option value="Printer Issue">Printer Issue</option>
+                            <option value="Network Related">Network Issue</option>
+                            <option value="Network/Password/Email">Login/Password/Email Issue</option>
+                            <option value="Software/applications">Software/Applications Issue</option>
+                            <option value="Hardware">Hardware Issue</option>
+                            <option value="Graphics">Graphics Design</option>
+                            <option value="Others">I'm Not Sure</option>
+                            <option value="Camera Issue">Camera Related Issue</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="department" aria-placeholder="department">
+                            <option value="" disabled selected>Department</option>
+                            <option value="hr">HR</option>
+                            <option value="audit">Audit</option>
+                            <option value="supply chain">Supply Chain</option>
+                            <option value="admin/operation">Admin & Operations/Health/Security</option>
+                            <option value="account/finance">Account/Finance</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="it">IT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="status" aria-placeholder="status">
+                            <option value="" disabled selected>Status</option>
+                            <option value="OPEN">Open</option>
+                            <option value="IN PROGRESS">In Progress</option>
+                            <option value="CLOSED">Closed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="staff" aria-placeholder="staff">
+                            <option value="" disabled selected>Staff</option>
+                            <% staff.forEach(staff => { %>
+                            <option value="<%= staff.staffname %>"><%= staff.staffname %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <hr>
+                    <small>Filter by date range</small>
+                    <div class="form-group">
+                        <label for="date">Start Date</label>
+                        <input type="date" name="startDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">End Date</label>
+                        <input type="date" name="endDate" class="form-control"  >
+                    </div>
+                    <div class="input-group-append form-group">
+                        <button class="btn btn-outline-primary" type="submit">Filter</button>
+                    </div>
+                </form>
+            </div>
+            <div class="generated-report offset-2 h-100">
+                <% if(report == "") { %>
+                    <p>select filters on your left to generate report</p>
+                <% } %>
+                <% if(report != "") { %>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">S/N</th>
+                            <th scope="col">Ticket No</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Date Closed</th>
+                            <th scope="col">Job Status</th>
+                            <th scope="col">Staff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (i = 0; i < report.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %> </td>
+                            <td><%= report[i].ticket_number %></td>
+                            <td><%= report[i].fullname %></td>
+                            <td><%= report[i].date_created %></td>
+                            <td><%= report[i].date_closed %></td>
+                            <td><%= report[i]. status %></td>
+                            <td><%= report[i].staffname %></td>
+                        </tr>
+                        <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+        <%- include('partials/dashFooter') %>
