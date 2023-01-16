@@ -1,5 +1,4 @@
 const Staff = require('../models/staff');
-const ticket = require('../models/ticket');
 const Tickets = require('../models/ticket');
 
 
@@ -34,9 +33,8 @@ exports.advancedReport = async (req, res) => {
 // get tickets by filter
 exports.ticketFilter = async (req, res) => {
     let staff = await Staff.find();
-    let report = await Tickets.find()
-        .where("sbu").equals(req.body.sbu)
-    
+    let report = await Tickets.find({sbu: req.body.sbu, category: req.body.category});
+        
     return res.render('advancedreport', {
         user: req.user,
         staff,

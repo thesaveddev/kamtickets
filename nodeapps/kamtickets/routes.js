@@ -7,6 +7,7 @@ const UserTicketController = require('./controllers/userticket.controller');
 const AdminTicketController = require('./controllers/admin.controller');
 const StaffTicketController = require('./controllers/staff.controller');
 const ReportController = require('./controllers/reports.controller');
+const SettingsController = require('./controllers/settings.controller');
 
 
 
@@ -89,10 +90,12 @@ app.get('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketControl
 app.post('/staff/ticket/:ticketid', authCheck.isAuthenticated, StaffTicketController.updateTicket);
 app.post('/staff/comment', authCheck.isAuthenticated, StaffTicketController.staffComment);
 
-
 //report module
 app.get('/reports', authCheck.isAuthenticated, ReportController.reportDashboard);
 app.get('/advancedreports', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.advancedReport);
 app.post('/advancedreport', authCheck.isAuthenticated, authCheck.isAdmin, ReportController.ticketFilter);
+
+// settings module
+app.get('/settings', authCheck.isAuthenticated, authCheck.isAdmin, SettingsController.settings);
 
 module.exports = app

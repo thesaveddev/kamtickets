@@ -339,16 +339,6 @@ hr {
 .manual-image {
     width: max-content;
 }
-
-/* report page */
-/* .dash-card {
-    width: 30%;
-    height: 10%;
-    border: 4px solid #9a7b4f;
-    border-radius: 2%;
-    margin: 10px;
-    background-color: #e6e9ee;
-} */
 .report-card-header {
     background-color: #9a7b4f;
     height: 50%;
@@ -459,4 +449,8 @@ p.ticket {
 .holder > * {
     flex: 1;
     padding: 0 5px;
+}
+/* settings style */
+.settings-form {
+    min-height: 60vh;
 }

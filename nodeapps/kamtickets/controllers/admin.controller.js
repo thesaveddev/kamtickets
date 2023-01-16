@@ -402,8 +402,8 @@ exports.adminComment = async (req, res) => {
     let userMail = {
             from: '"IT Help Desk 👻" <it-helpdesk@kamholding.net>', // sender address
             to: ticket.email, // list of receivers
-            subject: "New Comment", // Subject line
-            html: `<p>Dear ${ticket.fullname}, A New Comment Has Been Made On Your ticket, ${ticket.subject}, kindly track yur ticket on the portal.</p>`
+            subject: "Helpdesk - New Comment Notification", // Subject line
+            html: `<p>Dear ${ticket.fullname}, A New Comment Has Been Made On Your Ticket, "${ticket.subject}", Kindly Track Your Ticket On The Portal.</p>`
         }
                     
         Mailer.sendMail(userMail);
