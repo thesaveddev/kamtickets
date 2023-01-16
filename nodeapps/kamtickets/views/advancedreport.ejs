@@ -107,7 +107,12 @@
                             <td><%= report[i].date_created %></td>
                             <td><%= report[i].date_closed %></td>
                             <td><%= report[i]. status %></td>
-                            <td><%= report[i].staffname %></td>
+                            <% if(report[i].state == "UNASSIGNED") {%>
+                            <td class="bg-danger text-white">Not Yet Assigned</td>
+                            <% } %>
+                            <% if(report[i].state == "ASSIGNED") {%>
+                                <td><%= report[i].staffname %></td>
+                            <% } %>
                         </tr>
                         <% } %>
                         <% } %>

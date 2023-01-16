@@ -3,11 +3,8 @@ const Ticket = require('../models/ticket');
 const moment = require('moment');
 const Mailer = require('../utils/mailer');
 
-
-
 // get all staff tickets
 exports.allStaffTickets = async (req, res) => {
-    
     let tickets = await Ticket.find({ staffemail: req.user.email });
 
     if (!tickets.length > 0) {
