@@ -1,6 +1,7 @@
 const Staff = require('../models/staff');
 const Tickets = require('../models/ticket');
 
+
 // report dashboard
 exports.reportDashboard = async (req, res) => {
     const tickets = await Tickets.find();
@@ -8,7 +9,8 @@ exports.reportDashboard = async (req, res) => {
     let SBU = ["hq", "jimba", "sagamu", "haulage", "dimkit-ganmo", "dimkit-kaduna", "kirikiri"]
     let Departments = ["hr", "audit", "supply chain", "admin/operation", "account/finance", "electrical", "it"]
 
-return res.render('reportdashboard', {
+
+    return res.render('reportdashboard', {
         allTickets: tickets,
         staff,
         SBU,
