@@ -1,6 +1,6 @@
 const Staff = require('../models/staff');
 const Tickets = require('../models/ticket');
-const moment = require('moment');
+
 
 // report dashboard
 exports.reportDashboard = async (req, res) => {
@@ -9,7 +9,8 @@ exports.reportDashboard = async (req, res) => {
     let SBU = ["hq", "jimba", "sagamu", "haulage", "dimkit-ganmo", "dimkit-kaduna", "kirikiri"]
     let Departments = ["hr", "audit", "supply chain", "admin/operation", "account/finance", "electrical", "it"]
 
-return res.render('reportdashboard', {
+
+    return res.render('reportdashboard', {
         allTickets: tickets,
         staff,
         SBU,
@@ -25,36 +26,18 @@ exports.advancedReport = async (req, res) => {
     return res.render('advancedreport', {
         user: req.user,
         staff,
-        start: '',
-        end: '',
         report: ''
     })
 }
 
 // get tickets by filter
 exports.ticketFilter = async (req, res) => {
-    // .format("ddd MMM D, yyyy hh:mm a")
     let staff = await Staff.find();
-    let start = moment(req.body.startDate, "YYYY-MM-DD").format('LL');
-    let end = moment(moment(req.body.endDate, "YYYY-MM-DD").format('LL')).add(1, 'd')
-    let allTickets = await Tickets.find();
-    let report = []
-    
-    // check if selected dates are valid
-    // check if end date is after start date
-    // get tickets between start and end dates
-    allTickets.map(ticket => {
-        let ticketdate = moment(ticket.date_created);
-        if (moment(ticketdate).isSameOrAfter(start) && moment(ticketdate).isSameOrBefore(end)){
-            report.push(ticket);
-        }
-    })
-
+    let report = await Tickets.find({sbu: req.body.sbu, category: req.body.category});
+        
     return res.render('advancedreport', {
         user: req.user,
         staff,
-        start: req.body.startDate,
-        end: req.body.endDate,
         report
     })
 }

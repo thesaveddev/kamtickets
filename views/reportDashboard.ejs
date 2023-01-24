@@ -8,64 +8,64 @@
                 <a class="btn btn-sm btn-outline-primary m-1" href="/advancedreports">Advanced Filters</a>
         </div>
         <div class="summary">
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>All Tickets</p>
+            <div class="dash-card text-center">
+                <div class=" card-header text-default">
+                    <b><p>All Tickets</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.length %> Tickets
+                        <b><%= allTickets.length %> Tickets</b>
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>Open Tickets</p>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Open Tickets</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.filter(ticket=> ticket.status == "OPEN").length %> Tickets
+                        <b><%= allTickets.filter(ticket=> ticket.status == "OPEN").length %> Tickets </b>
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>Closed Tickets</p>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Closed Tickets</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.filter(ticket=> ticket.status == "CLOSED").length %> Tickets
+                        <b><%= allTickets.filter(ticket=> ticket.status == "CLOSED").length %> Tickets </b>
 
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>Assigned Tickets</p>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Assigned Tickets</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.filter(ticket=> ticket.state == "ASSIGNED").length %> Tickets
+                        <b><%= allTickets.filter(ticket=> ticket.state == "ASSIGNED").length %> Tickets </b>
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>Unassigned Tickets</p>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Unassigned Tickets</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.filter(ticket=> ticket.state == "UNASSIGNED").length %> Tickets
+                        <b><%= allTickets.filter(ticket=> ticket.state == "UNASSIGNED").length %> Tickets </b>
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
-            <div class="dash-card">
-                <div class="report-card-header text-white">
-                    <p>Tickets In Progress</p>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Tickets In Progress</p></b>
                 </div>
                 <div class="report-card-body">
                     <p class="ticket">
-                        <%= allTickets.filter(ticket=> ticket.status == "IN PROGRESS").length %> Tickets
+                        <b><%= allTickets.filter(ticket=> ticket.status == "IN PROGRESS").length %> Tickets </b>
                     </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
                 </div>
             </div>
