@@ -117,7 +117,7 @@
                                                 <%= report[i].date_created %>
                                             </td>
                                             <td>
-                                                <% if(report[i].status == "OPEN" || Rreport[i].status == "IN PROGRESS") {%>
+                                                <% if(report[i].status == "OPEN" || report[i].status == "IN PROGRESS") {%>
                                                     <p>Not Yet Closed</p>
                                                 <% } %>
                                                 <% if(report[i].status == "CLOSED") {%>
