@@ -82,8 +82,12 @@
             </div>
             <div class="generated-report offset-2 p-1 overflow-auto" id="generated-report">
                 <div align="center">
-                    <h6>Report from <%= start %> to <%= end %></h6> 
-                    
+                    <% if(reportTitle != '') { %>
+                    <h6>TICKETS FROM <%= reportTitle.toUpperCase() %></h6>
+                    <% } %>
+                    <% if(start !='') { %>
+                    <h6>From <%= start %> to <%= end %></h6> 
+                    <% } %>
                 </div>
                 <% if(report=="" ) { %>
                     <p>No Report Generated, Please Select Filters To Generate Report</p>
