@@ -24,5 +24,5 @@ if (mm < 10) {
     
 today = yyyy + '-' + mm + '-' + dd;
 document.getElementById("startDate").setAttribute("max", today);
-document.getElementById("enddate").setAttribute("max", today);
+document.getElementById("endDate").setAttribute("max", today);
 
