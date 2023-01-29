@@ -84,6 +84,23 @@
                         </div>
                     </div>
                 </form>
+                <div class="form" align="center">
+                    <form action="/closeticket/<%= ticket._id %>" method="post">
+                        <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                        <div class="input-group mb-3">
+                            <select class="form-control" name="status" aria-placeholder="Staff" required>
+                                <option value="" disabled selected>Change Ticket Status
+                                </option>
+                                <option value="OPEN">OPEN</option>
+                                <option value="IN PROGRESS">IN PROGRESS</option>
+                                <option value="CLOSED">CLOSED</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit">Update Ticket</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="">

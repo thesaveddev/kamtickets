@@ -356,7 +356,7 @@ exports.closeTicket = async (req, res) => {
                     
     Mailer.sendMail(userMail);
     
-    return res.render('ticketinfo', {
+    return res.render('ticketdetail', {
         message: "Ticket has been closed.",
         ticket,
         allstaff,

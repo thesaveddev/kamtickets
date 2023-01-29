@@ -139,7 +139,6 @@ exports.updateTicket = async (req, res) => {
     try {
         let staffTickets = await Ticket.find({ staffemail: req.user.email });
         let ticket = await Ticket.findOne({ _id: req.params.ticketid, staffemail: req.user.email });
-        console.log(req.body)
     if (!ticket) {
         return res.render('allstaffticket', {
             tickets,
@@ -153,7 +152,6 @@ exports.updateTicket = async (req, res) => {
         // close ticket
     if (req.body.status == "CLOSED") {
         let closed, closed_by;
-        console.log('closed')
 
         closed = moment(Date.now()).format("LLLL"),
         closed_by = req.user.fullname
@@ -186,7 +184,6 @@ exports.updateTicket = async (req, res) => {
         if (req.body.status == "IN PROGRESS") {
             ticket.status = req.body.status;
             ticket.save();
-        console.log('progress')
         
             // send mail to user
             let mailOptions = {
@@ -200,7 +197,7 @@ exports.updateTicket = async (req, res) => {
             // send email notification
             Mailer.sendMail(mailOptions);
 
-            return res.render('staffticketdetail', {
+            return res.redirect ('/staffdashboard', 200, {
                 message: 'Ticket has been updated',
                 ticket,
                 user: req.user
@@ -211,7 +208,6 @@ exports.updateTicket = async (req, res) => {
         if (req.body.status == "OPEN") {
         ticket.status = req.body.status;
         ticket.save();
-        console.log('re open')
         
         // send mail to user
         let mailOptions = {
@@ -224,7 +220,8 @@ exports.updateTicket = async (req, res) => {
         
             // send email notification
             Mailer.sendMail(mailOptions);
-            return res.render('allstafftickets', {
+            
+            return res.redirect ('/staffdashboard', 200, {
             message: 'Ticket has been re-opened',
             tickets: staffTickets,
             pagetitle: 'All Tickets',
@@ -233,9 +230,8 @@ exports.updateTicket = async (req, res) => {
     }
     } catch (error) {
         console.log(error)
-        let tickets = await Ticket.find({ staffemail: req.user.email });
 
-            return res.render('allstafftickets', {
+                return res.redirect ('/staffdashboard', 200, {
                 message: 'An error occured. Ticket was not updated.',
                 // tickets,
                 pagetitle: 'All Tickets',

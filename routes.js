@@ -74,7 +74,7 @@ app.get('/tickets/closed', authCheck.isAuthenticated, AdminTicketController.clos
 app.get('/tickets/inprogress', authCheck.isAuthenticated, AdminTicketController.ticketsInProgress);
 app.get('/ticket/:ticketid', authCheck.isAuthenticated, AdminTicketController.viewTicket);
 app.post('/assignticket', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.assignTicket);
-app.get('/closeticket/:ticketid', authCheck.isAuthenticated, authCheck.isAuthenticated, AdminTicketController.closeTicket);
+app.post('/closeticket/:ticketid', authCheck.isAuthenticated, authCheck.isAuthenticated, AdminTicketController.closeTicket);
 app.post('/findtickets', authCheck.isAuthenticated, authCheck.isAdmin, authCheck.isAuthenticated, AdminTicketController.findTickets);
 app.post('/admin/comment', authCheck.isAuthenticated, authCheck.isAdmin, AdminTicketController.adminComment);
 
