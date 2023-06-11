@@ -1,0 +1,456 @@
+.wrapper {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+}
+.centralize {
+    margin: auto;
+    display: block;
+    width: 95%;
+}
+.top-space {
+    margin-top: 15%;
+}
+.admin-top-space {
+    margin-top: 3%;
+}
+.space {
+    padding: 10px
+}
+.clear {
+    height: 60px;
+}
+.btn-center {
+    margin-left: auto;
+}
+.form-wide {
+    width: 30%;
+}
+.navbar {
+    padding: 0 !important;
+}
+.wide {
+    width: 100% !important;
+}
+img {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 2px;  /* Rounded border */
+  padding: 2px; /* Some padding */
+  width: 30px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+.btn-outline-primary {
+    color: #9a7b4f;
+    border: 1px solid #b4b9c0;
+}
+.btn-outline-primary:hover{
+    background-color: #b4b9c0 !important;
+    color: #9a7b4f !important;
+    border: 1px solid #b4b9c0;
+}
+.bg-primary {
+    background-color: #9a7b4f !important;
+}
+.bg-blue {
+    background-color: rgb(5, 148, 214);
+}
+.card {
+    margin: auto;
+}
+.card-header-admin {
+   margin: auto;
+}
+.card-holder {
+    height: 100vh;
+    box-shadow: #000;
+    display: flex;
+}
+.dash-card {
+    width: 30%;
+    height: 30%;
+    border: 4px solid #9a7b4f;
+    border-radius: 2%;
+    margin: 10px;
+    background-color: #e6e9ee;
+}
+.admin-div-header {
+    background-color: #9a7b4f;
+    height: 20%;
+}
+.admin-div-body {
+    padding-top: 10%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: larger;
+}
+.link-color {
+    color: #9a7b4f;
+}
+.link-color:hover {
+    color: #000;
+    text-decoration: none;
+}
+.bold {
+    font-weight: bolder;
+}
+.username {
+    text-decoration: underline;
+}
+
+/* image styling */
+/* Style the Image Used to Trigger the Modal */
+img {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 80px;
+}
+
+img:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+#image-viewer {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+.modal-content { 
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+#image-viewer .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+#image-viewer .close:hover,
+#image-viewer .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
+/* profile picture style */
+body {
+    background-color: #f7f6f6
+}
+
+.card {
+    border: none;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 10px;
+}
+.user-img{
+    width: 25px;
+    margin-top: 2px;
+}
+.profile-img {
+    width: 30px;
+    margin-top: 4px;
+}
+.commenter {
+    font-size: xx-small;
+}
+.comment-date {
+    font-size: xx-small;
+    padding-right: 4px;
+}
+.comment {
+    font-size: small;
+    text-transform: capitalize;
+}
+/* ticket styling */
+.ticket-staff-detail {
+    margin: 0;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #dee3e9;
+}
+.ticket-issue-detail {
+    margin: 1px;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #d8d8da;
+}
+.ticket-action {
+    margin: 1px;
+    min-height: 65vh; 
+    overflow-y:auto;
+    background-color: #dee3e9;
+}
+.ticket-font {
+    padding: 0;
+    font-size: 1em;
+    display: inline-block;
+}
+.ticket-number {
+    font-size: 1.5em;
+    color: rgba(43, 49, 138, 0.788);
+}
+.col, .col-5, .col-7, .col-3 {
+    padding-left: 4px;
+}
+hr {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* styling the image modal */
+ /* Style the Image Used to Trigger the Modal */
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 50px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+} 
+/* this is the css of the kam-manual*/
+.body{
+   display: grid;
+   place-items: center;
+}
+.p1{ 
+    padding-left: 26%;
+    padding-right: 26%;
+}
+.p2{
+    padding-left: 26%;
+    padding-right: 26%;
+}
+.p3{
+    padding-left: 30%;
+    padding-right: 30%;
+}
+.step-2{
+    display:grid;
+    place-items: center;
+}
+.step-4{
+    display:grid;
+    place-items: center;
+}
+.step-9{
+    display:grid;
+    place-items: center;
+}
+.manual-image {
+    width: max-content;
+}
+.report-card-header {
+    background-color: #9a7b4f;
+    height: 50%;
+}
+.report-card-header > p {
+    padding-left: 5px;
+    margin: 0;
+}
+.report-card-body {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: larger;
+}
+.report-card-body > p {
+    padding-left: 5px;
+    margin: 0;
+}
+.report-category {
+    border: 2px solid black;
+    min-height: 20%;
+}
+.page-title {
+    width: 100%;
+    display: flex;
+}
+.summary {
+    display: flex;
+}
+.sbu {
+    display: flex;
+    min-width: 49.5%;
+    float: left;
+}
+.department {
+    display: flex;
+    min-width: 49.5%;
+    float: right;
+}
+.report-title {
+    display: flex;
+    min-width: 50%;
+    float: left;
+    padding-left: 18%;
+}
+.staff-summary-title {
+    display: flex;
+    min-width: 100%;
+    float: left;
+    justify-content: center;
+}
+.staff-summary {
+    min-width: 100%;
+}
+.download {
+    display: flex;
+    float: right;
+    width: 15%;
+    height: 15%;
+}
+p.ticket {
+    display: inline-block;
+}
+.menu {
+    left: 0;
+    top: 15%;
+    height: 90vh;
+    float: left;
+    width: 15%;
+    padding-right: 1%;
+}
+.generated-report {
+    border: 2px solid #9a7b4f;
+    border-radius: 10px;
+    float: right;
+    width: 85%;
+    height: 90vh;
+    padding: 5px;
+}
+.filter-title {
+    text-align: center;
+    background-color: #9a7b4f;
+    height: 10%;
+    padding-top: 5%;
+    margin-bottom: 5%;
+}
+.form-group {
+    margin: 2px;
+}
+.comments {
+    height: calc(100vh - 110px);
+    overflow-y: scroll;
+}
+.fill-up {
+    display: flex;
+    grid-template-columns: fit-content(100%) fit-content(100%) 1fr;
+    min-height: 100%;
+    width: 100%;
+    background-color: #8cffa0;
+}
+.holder {
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    min-height: 80vh;
+    top: 11%;
+    position: fixed;
+}
+.holder > * {
+    flex: 1;
+    padding: 0 5px;
+}
+/* settings style */
+.settings-form {
+    min-height: 60vh;
+}

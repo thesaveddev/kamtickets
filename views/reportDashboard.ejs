@@ -1,0 +1,230 @@
+<%- include('partials/dashheader') %>
+
+    <div class="centralize">
+        <!-- report hint at a glance -->
+        <div class="page-title">
+            <h4 class="mr-auto">REPORTS</h4>
+                <a class="btn btn-sm btn-outline-primary m-1" href="" onclick="window.print();">Download Summary</a>
+                <a class="btn btn-sm btn-outline-primary m-1" href="/advancedreports">Advanced Filters</a>
+        </div>
+        <div class="summary">
+            <div class="dash-card text-center">
+                <div class=" card-header text-default">
+                    <b><p>All Tickets</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.length %> Tickets</b>
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Open Tickets</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.filter(ticket=> ticket.status == "OPEN").length %> Tickets </b>
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Closed Tickets</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.filter(ticket=> ticket.status == "CLOSED").length %> Tickets </b>
+
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Assigned Tickets</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.filter(ticket=> ticket.state == "ASSIGNED").length %> Tickets </b>
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Unassigned Tickets</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.filter(ticket=> ticket.state == "UNASSIGNED").length %> Tickets </b>
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+            <div class="dash-card text-center">
+                <div class="report-card-header card-header text-default">
+                    <b><p>Tickets In Progress</p></b>
+                </div>
+                <div class="report-card-body">
+                    <p class="ticket">
+                        <b><%= allTickets.filter(ticket=> ticket.status == "IN PROGRESS").length %> Tickets </b>
+                    </p> <a href=""><img src="/icons/download.svg" alt="" class="download"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- reports by category -->
+        <div class="category text-center">
+            <h5>REPORTS BY CATEGORY</h5>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Printer Issues</th>
+                        <th scope="col">Login/Password/Email Issues</th>
+                        <th scope="col">Camera Issues</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Printer Issue").length %> Tickets
+                        </td>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Network/Password/Email").length %>
+                                Tickets
+                        </td>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Camera Issue").length %> Tickets
+                        </td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Network Issues</th>
+                        <th scope="col">Software/Application Issues</th>
+                        <th scope="col">Hardware Issues</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Network Related").length %> Tickets
+                        </td>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Software/applications").length %> Tickets
+                        </td>
+                        <td>
+                            <%= allTickets.filter(ticket=> ticket.category == "Hardware").length %> Tickets
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Uncategorized: <%= allTickets.filter(ticket=> ticket.category == "Others").length %> Tickets</p>
+        </div>
+
+        <!-- reports by SBU and Department-->
+        <div class="sbu-department-report text-center">
+            <div class="report-title">
+                <h5>REPORTS BY SBU</h5>
+            </div>
+            <div class="report-title">
+                <h5>REPORTS BY DEPARTMENT</h5>
+            </div>
+            <div class="sbu">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">SBU</th>
+                            <th scope="col">Open Tickets</th>
+                            <th scope="col">In-Progress Tickets</th>
+                            <th scope="col">Closed Tickets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% SBU.forEach(sbu => { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= sbu.toUpperCase() %>
+                                </th>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.sbu == sbu && ticket.status == "OPEN").length %> Tickets
+                                </td>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.sbu == sbu && ticket.status == "IN PROGRESS").length %> Tickets
+                                </td>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.sbu == sbu && ticket.status == "CLOSED").length %> Tickets
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="department">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">DEPARTMENT</th>
+                            <th scope="col">Open Tickets</th>
+                            <th scope="col">In-Progress Tickets</th>
+                            <th scope="col">Closed Tickets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% Departments.forEach(department=> { %>
+                        <tr>
+                            <th scope="row"><%= department.toUpperCase() %></th>
+                            <td><%= allTickets.filter(ticket=> ticket.department == department && ticket.status == "OPEN").length %> Tickets %></td>
+                            <td><%= allTickets.filter(ticket=> ticket.department == department && ticket.status == "IN PROGRESS").length %> Tickets %></td>
+                            <td><%= allTickets.filter(ticket=> ticket.department == department && ticket.status == "CLOSED").length %> Tickets %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="staff-summary">
+                <div class="staff-summary-title">
+                    <h5>STAFF SUMMARY</h5>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Staff Name</th>
+                            <th scope="col">Total Tickets</th>
+                            <th scope="col">Open Tickets</th>
+                            <th scope="col">In-Progress Tickets</th>
+                            <th scope="col">Closed Tickets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% staff.forEach(staff=> { %>
+                            <% if(staff.staffname != "Hakeem Akande" && staff.staffname != "Busayo Kalejaiye") { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= staff.staffname %>
+                                </th>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.staffname == staff.staffname).length %>
+                                        Tickets
+                                </td>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.staffname == staff.staffname && ticket.status
+                                        == "OPEN").length %> Tickets
+                                </td>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.staffname == staff.staffname && ticket.status
+                                        == "IN PROGRESS").length %>
+                                        Tickets
+                                </td>
+                                <td>
+                                    <%= allTickets.filter(ticket=> ticket.staffname == staff.staffname && ticket.status
+                                        == "CLOSED").length %>
+                                        Tickets
+                                </td>
+                            </tr>
+                                <% } %>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <%- include('partials/dashFooter') %>

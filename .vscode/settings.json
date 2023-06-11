@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/aa83be9c-4d19-41c8-949a-761db6a6f154/resourceGroups/nexhelpdesk/providers/Microsoft.Web/sites/nexhelpdesk",
+    "appService.deploySubpath": "."
+}

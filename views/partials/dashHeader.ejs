@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nex Helpdesk</title>
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary fixed-top">
+      <a class="navbar-brand text-white" href="/"><img class="m-2 logo" src="/images/logo.png">Nex Helpdesk</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+    
+    </ul>
+    <span class="navbar-text">
+    <a class="mr-1 text-white btn btn-outline-primary" href="/admin/dashboard">Admin</a>
+    <%if(user.fullname) { %>
+      <img src="/images/pp.jpg" class="rounded-circle profile-img">
+      <span class="username text-white"><%=user.fullname%></span>
+      <a class="mr-2 text-white btn btn-outline-primary" href="/logout">Logout</a>
+    <%} %>
+    </span>
+  </div>
+</nav>
+    <div class="wrapper">

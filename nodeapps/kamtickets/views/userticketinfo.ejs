@@ -1,0 +1,92 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize w-75 mt-4">
+            <div>
+        <% if(message != '') { %>
+            <div class="alert alert-secondary" role="alert">
+        <%= message %>
+        </div>
+        <% } %>
+        </div>
+            <div>
+                <div class="">
+                    <div class="card-header">
+                        <div>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-5 col-lg-6">
+                                <p><%=ticket.subject%></p>
+                                    <hr>
+                                    <div>
+                                        <p>Ticket Status: <span class="text-primary bold"><%= ticket.status %></span> </p>
+                                    </div>
+                                    <hr>
+                        <div class="">
+                            <p>Date Created: <%= ticket.date_created%></p>
+                        </div>
+                        <% if(ticket.date_closed) { %>
+                        <div>
+                            <p>Date Closed:</p> <%= ticket.date_closed%>
+                            <p>Closed By:</p> <%= ticket.closed_by%>
+                        </div>
+                        
+                        <% } %>
+                        <div>
+                            <p>Assigned To: <% if(ticket.state == "UNASSIGNED") { %>
+                                <span class="bg-danger bold text-white p-1 m-2"> Not Yet Assigned</span></p>
+                                <% } %>
+                            </div>
+                            <div>
+                                <p><span class="bg-primary"><%=ticket.staffname%></span></p>
+                            </div>
+                            </div>
+                              <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">
+                                <p>Staff Contact Details</p>
+                                <hr>
+                                <p>Staff Email: <%= ticket.email %></p>
+                                <p>Staff Phone: <%= ticket.phone %></p>
+                                <p>Staff SBU: <%= ticket.sbu.toUpperCase() %></p>
+                                <p>Staff Department: <%= ticket.department.toUpperCase() %></p>                            </div>
+                            </div>
+                          </div>
+                    </div>
+                    <% if(ticket.status != "CLOSED") { %>
+                        <div class="card-header-admin m-4" align="center">Add Comment</div>
+                        <div class="form" align="center">
+                            <form action="/user/comment" method="post">
+                                <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                                <div class="form-group">
+                                    <textarea name="comment" class="form-control" cols="68" rows="4" placeholder="Enter your comments here" required></textarea>
+                                </div>
+                                <div class="form-group m-4">
+                                    <button type="submit" class="btn btn-outline-primary">Add Comment</button>
+                                </div>
+                            </form>
+                        </div>
+                        <% } %>
+                    <div class="card-body" align="center">
+                        <div class="comments m-2">
+                                <h5>Comments</h5>
+                                <% ticket.comments.reverse().forEach(comment => { %>
+                            <div class="card p-3 m-2">
+
+                                <div class="d-flex justify-content-between align-items-center">
+        
+                              <div class="user d-flex flex-row align-items-center">
+        
+                                <img src="/images/pp.jpg" width="30" class="user-img rounded-circle mr-2">
+                                <span><small class="font-weight-bold text-primary"><%= comment.user.split(' ')[0] %></small> <small class=""><%= comment.comment %></small></span>
+                              </div>
+                              <small><%= comment.date %></small>
+        
+                              </div>        
+                            </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <!--<div class="card-footer-admin">-->
+                </div>
+                </div>
+            </div>
+        </div> 
+
+<%- include('partials/dashFooter') %>

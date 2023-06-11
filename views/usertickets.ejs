@@ -1,0 +1,33 @@
+<%- include('partials/dashheader') %>
+
+        <div class="centralize mt-4">
+          <div class="float-left m-4">
+            <h4>My Tickets</h4>
+            <span><%= tickets.length %> Tickets</span>
+          </div>
+
+           <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Ticket Number</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Date Opened</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% tickets.reverse().forEach(ticket => { %>
+        <tr>
+          <td><%= ticket.ticket_number%> </td>
+          <td><%= ticket.subject%> </td>
+          <td><%= ticket.date_created%> </td>
+          <td><%= ticket.status%> </td>
+          <td><a href="/user/ticket/<%=ticket._id%>" class="btn btn-outline-primary">View Ticket</a></td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>
+        </div>
+
+<%- include('partials/dashFooter') %>

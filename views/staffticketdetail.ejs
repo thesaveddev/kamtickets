@@ -1,0 +1,116 @@
+<%- include('partials/dashheader') %>
+    <div class="holder">
+        <div class="staff-detail">
+            <div class="card-header" align="center">
+                <h6><b>STAFF DETAIL</b></h6>
+            </div>
+            <div class="card-body ticket-font p-1">
+                <p>Date: <%= ticket.date_created %>
+                </p>
+                <p>User: <%= ticket.fullname %>
+                </p>
+                <p>SBU: <%= ticket.sbu.toUpperCase() %>
+                </p>
+                <p>Department: <%= ticket.department.toUpperCase() %>
+                </p>
+                <p>Phone No: <%= ticket.phone %>
+                </p>
+                <p>Email: <%= ticket.email %>
+                </p>
+            </div>
+        </div>
+        <div class="card ticket-issue-detail">
+            <div class="card-header" align="center">
+                <h6><b>TICKET DETAIL</b></h6>
+            </div>
+            <div class="card-body ticket-font p-1">
+                <p>Ticket Number: <span class="ticket-number">
+                        <%= ticket.ticket_number %>
+                    </span></p>
+                <p>Category: <%= ticket.category %>
+                </p>
+                <p>Subject: <%= ticket.subject %>
+                </p>
+                <p>Description:</p> <textarea class="ticket-detail" cols="30" rows="3"
+                    disabled><%= ticket.description %></textarea>
+                <% if(ticket.attachment !="" ) { %>
+                    <!-- Trigger the Modal -->
+                    <p> Attachment: </p><img id="myImg" src="<%= ticket.attachment %>" alt="Attachment"
+                        style="width:90%;max-width:90px">
+                    <% } %>
+            </div>
+        </div>
+        <div class="ticket-status">
+            <div class="card-header" align="center">
+                <h6><b>TICKET STATUS</b></h6>
+            </div>
+            <div class="card-body p-2 ticket-font">
+                <p>Assigned: <span>
+                        <%= ticket.staffname %>
+                    </span></p>
+                <p>Status: <span>
+                        <%= ticket.status %>
+                    </span></p>
+                <p>Date Assigned: <span>
+                        <%= ticket.date_assigned %>
+                    </span></p>
+                <form action="/staff/ticket/<%= ticket._id %>" method="post">
+                    <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                    <div class="input-group mb-3">
+                        <select class="form-control" name="status" aria-placeholder="Staff" required>
+                            <option value="" disabled selected>Change Ticket Status
+                            </option>
+                            <option value="OPEN">OPEN</option>
+                            <option value="IN PROGRESS">IN PROGRESS</option>
+                            <option value="CLOSED">CLOSED</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit">Update Ticket</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="card-header" align="center">
+                <h6><b>COMMENTS</b></h6>
+            </div>
+            <div class="card-body ticket-font">
+                <% if(ticket.status !="CLOSED" ) { %>
+                    <div class="form" align="center">
+                        <form action="/staff/comment" method="post">
+                            <input type="hidden" name="ticketid" value="<%=ticket._id%>">
+                            <div class="form-group">
+                                <textarea name="comment" class="form-control" cols="75" rows="2"
+                                    placeholder="Enter comment" required></textarea>
+                                <!-- <input class="form-control" type="file" /> -->
+                            </div>
+                            <div class="form-group m-4">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Add Comment</button>
+                            </div>
+                        </form>
+                        <% } %>
+                    </div>
+            </div>
+            <div class="comments overflow-auto">
+                <% ticket.comments.reverse().forEach(comment=> { %>
+                    <div class="card ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center ">
+                                <img src="/images/pp.jpg" class="user-img rounded-circle mr-1">
+                                <small class="font-weight-bold text-primary commenter mr-2">
+                                    <%= comment.user.split(' ')[0] %>
+                                        </small>
+                                         <small class="comment mr-2"><%= comment.comment %></small>
+                                    </div>
+                                    <hr>
+                                    <small class="comment-date"><%= comment.date.split(' ')[0] %></small>
+                                    <hr>
+                                </div>        
+                            </div>
+                    <% }) %>
+                    </div>
+        </div>
+    </div>
+
+<%- include('partials/dashFooter') %>

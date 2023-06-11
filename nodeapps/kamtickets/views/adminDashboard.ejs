@@ -1,0 +1,47 @@
+<%- include('partials/dashheader') %>
+
+    <div class="centralize mt-4">
+        <div class="">
+            <div class="page-title"><h5>Admin Dashboard</h5></div>
+            <div class="m-1">
+                <a class="btn btn-sm btn-outline-primary" href="/staffdashboard">Staff Dashboard</a>
+            </div>
+        </div>
+        <div class="admin-top-space"></div>
+        <div class="card-holder pl-5" align="center">
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Ticket Management</p>
+                </div>
+                <div class="admin-div-body">
+                    <a class="link-color" href="/tickets">Tickets</a>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Staff Management</p>
+                </div>
+                <div class="admin-div-body">
+                    <a class="link-color" href="/allstaff">Staff Management</a>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Reports</p>
+                </div>
+                <div class="admin-div-body">
+                    <a class="link-color" href="/reports">Reports</a>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="admin-div-header text-white">
+                    <p>Settings</p>
+                </div>
+                <div class="admin-div-body">
+                    <a class="link-color" href="/settings">Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('partials/dashFooter') %>
