@@ -120,9 +120,15 @@ exports.signIn = async (req, res) => {
         res.redirect("/staffdashboard");
     }
     // if there's a staff who's also an admin
+<<<<<<< HEAD
         if (staff.role == "ADMIN") {
             const status = await bcrypt.compare(req.body.password, staff.password);
 console.log(req.body.password, staff.password)
+=======
+    if (staff.role == "ADMIN") {
+        const status = await bcrypt.compare(req.body.password, staff.password);
+
+>>>>>>> 4b017fe64ae64df286200d56e932df940a35b08e
         if (!status) {
         return res.status(501).render('index', {
             message: 'Incorrect Username or Password!'
