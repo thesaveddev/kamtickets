@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 exports.connect = () => {
     mongoose.connect(
-        `${process.env.DBURI}/${process.env.DBNAME}`,
+        'mongodb+srv://nex-dexplore:tZyLSFGOFQiFDaFu@cluster0.dhbo540.mongodb.net/',
         { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
             if (err) {
                 console.log(err)

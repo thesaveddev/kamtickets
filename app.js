@@ -12,6 +12,7 @@ const mailer = require('./utils/mailer');
 // set view engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
+mongoose.set('strictQuery', false)
 
 // set publc paths
 app.use(express.static(__dirname + '/public'));
